@@ -9,4 +9,24 @@ class Apartment extends Model
 {
     use HasFactory;
 
+    protected $table = 'apartments';
+
+    protected $fillable = [
+        'title',
+        'room',
+        'bathroom',
+        'bed',
+        'sq_meters',
+        'address',
+        'longitude',
+        'latitude',
+        'image',
+        'visibility',
+        'slug',
+    ];
+
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenity::class);
+    }
 }
