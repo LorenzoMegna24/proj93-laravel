@@ -25,6 +25,21 @@ class Apartment extends Model
         'slug',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
     public function amenities()
     {
         return $this->belongsToMany(Amenity::class);
