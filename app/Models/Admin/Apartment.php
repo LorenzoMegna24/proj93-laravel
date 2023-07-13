@@ -29,4 +29,9 @@ class Apartment extends Model
     {
         return $this->belongsToMany(Amenity::class);
     }
+
+    public function sponsors()
+    {
+        return $this->belongsToMany(Sponsor::class);
+    }
 }
