@@ -51,18 +51,22 @@ class ApartmentController extends Controller
 
         $slug = Apartment::generateSlug($request->title);
         $form_data['slug'] = $slug;
-        
+
         // $user_id = Apartment::where(['user_id' => Auth::user()]);
         // $form_data['user_id'] = $user_id;
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $path = Storage::disk('public')->put('apartment_image', $request->image);
             $form_data['image'] = $path;
         }
         // $apartment = Apartment::create($form_data);
-        $new_apartment = Apartment::create($form_data);
+        $new_apartment = new Apartment($form_data);
 
-        if($request->has('amenities')){
+        $new_apartment->user_id = auth()->user()->id;
+
+        $new_apartment->save();
+
+        if ($request->has('amenities')) {
             $new_apartment->amenities()->attach($request->amenities);
         }
 
@@ -107,9 +111,9 @@ class ApartmentController extends Controller
 
         $form_data['slug'] = $slug;
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
 
-            if( $apartment->image ){
+            if ($apartment->image) {
                 Storage::delete($apartment->image);
             }
 
@@ -119,7 +123,7 @@ class ApartmentController extends Controller
 
         $apartment->update($form_data);
 
-        if($request->has('amenities')){
+        if ($request->has('amenities')) {
             $apartment->amenities()->sync($request->amenities);
         }
 
@@ -136,7 +140,7 @@ class ApartmentController extends Controller
     {
         $apartment->amenities()->sync([]);
 
-        if($apartment->image){
+        if ($apartment->image) {
             Storage::delete($apartment->image);
         }
 
