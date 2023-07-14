@@ -60,11 +60,29 @@ class ApartmentController extends Controller
 
         $new_apartment = new Apartment($form_data);
         $new_apartment->user_id = auth()->user()->id;
-        $new_apartment->save();
+
 
         if ($request->has('amenities')) {
             $new_apartment->amenities()->attach($request->amenities);
         }
+
+        $address = $form_data['address'];
+        $url = 'https://api.tomtom.com/search/2/geocode/' . urlencode($address) . '.json?key=asb5Pwh7kCfYH2ak33Rwa7ebLVG3P4GF';
+        $response = file_get_contents($url);
+
+        $new_apartment->save();
+        $json = json_decode($response);
+
+
+        $latitude = $json->results[0]->position->lat;
+        $longitude = $json->results[0]->position->lon;
+
+
+        $new_apartment->update([
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+        ]);
+
 
         return redirect()->route('apartments.index');
     }

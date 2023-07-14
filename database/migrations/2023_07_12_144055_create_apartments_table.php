@@ -21,8 +21,8 @@ return new class extends Migration
             $table->smallInteger('bed');
             $table->integer('sq_meters')->nullable();
             $table->string('address');
-            $table->integer('longitude');
-            $table->integer('latitude');
+            $table->double('latitude', 10, 7)->default(0.0);
+            $table->double('longitude', 10, 7)->default(0.0);
             $table->string('image');
             $table->boolean('visibility')->default(1);
             $table->string('slug')->unique();
