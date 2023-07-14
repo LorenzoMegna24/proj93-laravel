@@ -42,8 +42,11 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $form_data = $request->all();
-
-        $apartment = Apartment::create($form_data);
+        // $apartment = Apartment::create($form_data);
+        $apartment = new Apartment();
+        $apartment->fill($form_data);
+        $apartment->save();
+        return redirect()->route('admin.apartments.index');
     }
 
     /**
@@ -65,7 +68,8 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        $amenities = Amenity::all();
+        return view('admin.apartments.edit', compact('apartment', 'amenities'));
     }
 
     /**
@@ -77,7 +81,9 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        $form_data = $request->all();
+        $apartment->update($form_data);
+        return redirect()->route('admin.apartments.store');
     }
 
     /**
@@ -88,6 +94,7 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->delete();
+        return redirect()->route('admin.apartment.index');
     }
 }
