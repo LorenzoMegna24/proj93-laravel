@@ -39,6 +39,17 @@
             <input class="form-control" name="address" type="text">
         </div>
 
+        <div class="form-group my-2">
+            <label class="form-label" for="">LONGITUDINE</label>
+            <input class="form-control" name="longitude" type="number">
+        </div>
+
+        <div class="form-group my-2">
+            <label class="form-label" for="">LATITUDINE</label>
+            <input class="form-control" name="latitude" type="number">
+        </div>
+
+
         {{-- campo input file --}}
         <div class="form-group my-2">
             <label class="form-label" for="">CARICA IMMAGINE</label>

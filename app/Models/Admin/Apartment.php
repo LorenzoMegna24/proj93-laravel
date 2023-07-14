@@ -14,6 +14,7 @@ class Apartment extends Model
     protected $table = 'apartments';
 
     protected $fillable = [
+        'user_id',
         'title',
         'room',
         'bathroom',

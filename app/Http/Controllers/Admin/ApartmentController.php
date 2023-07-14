@@ -50,8 +50,10 @@ class ApartmentController extends Controller
         $form_data = $request->all();
 
         $slug = Apartment::generateSlug($request->title);
-
         $form_data['slug'] = $slug;
+        
+        // $user_id = Apartment::where(['user_id' => Auth::user()]);
+        // $form_data['user_id'] = $user_id;
 
         if($request->hasFile('image')){
             $path = Storage::disk('public')->put('apartment_image', $request->image);
@@ -64,7 +66,7 @@ class ApartmentController extends Controller
             $new_apartment->amenities()->attach($request->amenities);
         }
 
-        return redirect()->route('admin.apartments.index');
+        return redirect()->route('apartments.index');
     }
 
     /**

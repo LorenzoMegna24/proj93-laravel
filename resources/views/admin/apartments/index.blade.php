@@ -10,7 +10,7 @@
             @foreach ($apartments as $elem)
                 <div class="col-lg-4">
                     <div class="card">
-                        <img class="card-img-top" src="{{$elem->image}}" alt="Title">
+                        <img class="card-img-top" src="{{asset('storage/' . $elem->image)}}" alt="Title">
                         <div class="card-body">
                             <h4 class="card-title">{{$elem->title}}</h4>
                             <p class="card-text">{{$elem->address}}</p>
