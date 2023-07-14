@@ -18,63 +18,63 @@ class AmenitySeeder extends Seeder
         $amenities = [
             [
                 'name' => 'WiFi',
-                'image' => ''
+                'image' => 'amenity_image/001-wi-fi.png'
             ],
             [
                 'name' => 'TV',
-                'image' => ''
+                'image' => 'amenity_image/002-television.png'
             ],
             [
                 'name' => 'Parcheggio',
-                'image' => ''
+                'image' => 'amenity_image/003-parking.png'
             ],
             [
                 'name' => 'Piscina',
-                'image' => ''
+                'image' => 'amenity_image/004-pool.png'
             ],
             [
                 'name' => 'Aria Condizionata',
-                'image' => ''
+                'image' => 'amenity_image/006-air-conditioner.png'
             ],
             [
                 'name' => 'Phon',
-                'image' => ''
+                'image' => 'amenity_image/007-hair-dryer.png'
             ],
             [
                 'name' => 'Palestra',
-                'image' => ''
+                'image' => 'amenity_image/008-gym.png'
             ],
             [
                 'name' => 'Biancheria',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Sauna',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Grucce',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Cassaforte',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Lavatrice',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Cucina',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Ascensore',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
             [
                 'name' => 'Accesso Disabili',
-                'image' => ''
+                'image' => 'amenity_image/'
             ],
         ];
 

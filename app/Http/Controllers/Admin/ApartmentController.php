@@ -7,6 +7,9 @@ use App\Models\Admin\Amenity;
 use App\Models\Admin\Apartment;
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 class ApartmentController extends Controller
 {
     /**
@@ -42,10 +45,22 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $form_data = $request->all();
+
+        $slug = Apartment::generateSlug($request->title);
+
+        $form_data['slug'] = $slug;
+
+        if($request->hasFile('image')){
+            $path = Storage::disk('public')->put('apartment_image', $request->image);
+            $form_data['image'] = $path;
+        }
         // $apartment = Apartment::create($form_data);
-        $apartment = new Apartment();
-        $apartment->fill($form_data);
-        $apartment->save();
+        $new_apartment = Apartment::create($form_data);
+
+        if($request->has('amenities')){
+            $new_apartment->amenities()->attach($request->amenities);
+        }
+
         return redirect()->route('admin.apartments.index');
     }
 
@@ -82,7 +97,27 @@ class ApartmentController extends Controller
     public function update(Request $request, Apartment $apartment)
     {
         $form_data = $request->all();
+
+        $slug = Apartment::generateSlug($request->title);
+
+        $form_data['slug'] = $slug;
+
+        if($request->hasFile('image')){
+
+            if( $apartment->image ){
+                Storage::delete($apartment->image);
+            }
+
+            $path = Storage::disk('public')->put('apartment_image', $request->image);
+            $form_data['image'] = $path;
+        }
+
         $apartment->update($form_data);
+
+        if($request->has('amenities')){
+            $apartment->amenities()->sync($request->amenities);
+        }
+
         return redirect()->route('admin.apartments.store');
     }
 
@@ -94,7 +129,14 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        $apartment->amenities()->sync([]);
+
+        if($apartment->image){
+            Storage::delete($apartment->image);
+        }
+
         $apartment->delete();
+
         return redirect()->route('admin.apartment.index');
     }
 }

@@ -5,6 +5,8 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str;
+
 class Apartment extends Model
 {
     use HasFactory;
@@ -24,6 +26,11 @@ class Apartment extends Model
         'visibility',
         'slug',
     ];
+
+    public static function generateSlug($title)
+    {
+        return Str::slug($title, '-');
+    }
 
     public function user()
     {
