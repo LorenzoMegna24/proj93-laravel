@@ -57,4 +57,29 @@ class Apartment extends Model
     {
         return $this->belongsToMany(Sponsor::class);
     }
+
+    public static function generateUniqueSlug($title, $id = null)
+    {
+        $slug = Str::slug($title);
+        $newSlug = $slug;
+        $counter = 1;
+
+        while (static::slugExists($newSlug, $id)) {
+            $newSlug = $slug . '-' . $counter;
+            $counter++;
+        }
+
+        return $newSlug;
+    }
+
+    public static function slugExists($slug, $id = null)
+    {
+        $query = static::where('slug', $slug);
+
+        if ($id) {
+            $query->where('id', '!=', $id);
+        }
+
+        return $query->exists();
+    }
 }

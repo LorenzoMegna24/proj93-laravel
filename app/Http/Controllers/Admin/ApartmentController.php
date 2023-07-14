@@ -7,6 +7,7 @@ use App\Models\Admin\Amenity;
 use App\Models\Admin\Apartment;
 use Illuminate\Http\Request;
 
+
 use App\Http\Controllers\Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -49,21 +50,16 @@ class ApartmentController extends Controller
     {
         $form_data = $request->all();
 
-        $slug = Apartment::generateSlug($request->title);
+        $slug = Apartment::generateUniqueSlug($request->title);
         $form_data['slug'] = $slug;
-
-        // $user_id = Apartment::where(['user_id' => Auth::user()]);
-        // $form_data['user_id'] = $user_id;
 
         if ($request->hasFile('image')) {
             $path = Storage::disk('public')->put('apartment_image', $request->image);
             $form_data['image'] = $path;
         }
-        // $apartment = Apartment::create($form_data);
+
         $new_apartment = new Apartment($form_data);
-
         $new_apartment->user_id = auth()->user()->id;
-
         $new_apartment->save();
 
         if ($request->has('amenities')) {
@@ -72,6 +68,7 @@ class ApartmentController extends Controller
 
         return redirect()->route('apartments.index');
     }
+
 
     /**
      * Display the specified resource.
