@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('longitude');
             $table->integer('latitude');
             $table->string('image');
-            $table->boolean('visibility')->default(1)->change();
+            $table->boolean('visibility')->default(1);
             $table->string('slug')->unique();
             $table->timestamps();
         });

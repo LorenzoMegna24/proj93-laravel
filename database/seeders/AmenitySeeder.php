@@ -46,35 +46,35 @@ class AmenitySeeder extends Seeder
             ],
             [
                 'name' => 'Biancheria',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/005-towel.png'
             ],
             [
                 'name' => 'Sauna',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/004-jacuzzi.png'
             ],
             [
                 'name' => 'Grucce',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/009-hanger.png'
             ],
             [
                 'name' => 'Cassaforte',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/010-safe.png'
             ],
             [
                 'name' => 'Lavatrice',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/002-washing-machine.png'
             ],
             [
                 'name' => 'Cucina',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/003-restaurant.png'
             ],
             [
                 'name' => 'Ascensore',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/005-elevator.png'
             ],
             [
                 'name' => 'Accesso Disabili',
-                'image' => 'amenity_image/'
+                'image' => 'amenity_image/001-disability.png'
             ],
         ];
 
