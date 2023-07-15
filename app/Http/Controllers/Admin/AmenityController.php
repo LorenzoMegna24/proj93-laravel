@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Amenity;
+use App\Models\Admin\Amenity;
 use Illuminate\Http\Request;
 
 class AmenityController extends Controller
