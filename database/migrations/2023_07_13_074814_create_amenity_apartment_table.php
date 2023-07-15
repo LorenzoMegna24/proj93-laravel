@@ -14,13 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('amenity_apartment', function (Blueprint $table) {
-            $table->unsignedBigInteger('apartment_id');
-            $table->foreign('apartment_id')->references('id')->on('apartments')->cascadeOnDelete();
+
 
             $table->unsignedBigInteger('amenity_id');
             $table->foreign('amenity_id')->references('id')->on('amenities')->cascadeOnDelete();
 
-            $table->primary(['apartment_id', 'amenity_id']);
+            $table->unsignedBigInteger('apartment_id');
+            $table->foreign('apartment_id')->references('id')->on('apartments')->cascadeOnDelete();
+
+            $table->primary(['amenity_id', 'apartment_id']);
         });
     }
 

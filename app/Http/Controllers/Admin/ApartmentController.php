@@ -51,6 +51,7 @@ class ApartmentController extends Controller
         $form_data = $request->all();
 
         $slug = Apartment::generateUniqueSlug($request->title);
+
         $form_data['slug'] = $slug;
 
         if ($request->hasFile('image')) {
@@ -59,12 +60,10 @@ class ApartmentController extends Controller
         }
 
         $new_apartment = new Apartment($form_data);
+
         $new_apartment->user_id = auth()->user()->id;
 
 
-        if ($request->has('amenities')) {
-            $new_apartment->amenities()->attach($request->amenities);
-        }
 
         $address = $form_data['address'];
         $url = 'https://api.tomtom.com/search/2/geocode/' . urlencode($address) . '.json?key=asb5Pwh7kCfYH2ak33Rwa7ebLVG3P4GF';
@@ -72,7 +71,9 @@ class ApartmentController extends Controller
 
         $new_apartment->save();
         $json = json_decode($response);
-
+        if ($request->has('amenities')) {
+            $new_apartment->amenities()->attach($request->amenities);
+        }
 
         $latitude = $json->results[0]->position->lat;
         $longitude = $json->results[0]->position->lon;
