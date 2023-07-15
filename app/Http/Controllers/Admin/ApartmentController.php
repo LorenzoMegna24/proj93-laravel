@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 
 use App\Http\Controllers\Illuminate\Support\Str;
+use App\Http\Requests\StoreApartmentRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,9 +47,9 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreApartmentRequest $request)
     {
-        $form_data = $request->all();
+        $form_data = $request->validated();
 
         $slug = Apartment::generateUniqueSlug($request->title);
 
