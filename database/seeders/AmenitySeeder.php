@@ -18,63 +18,63 @@ class AmenitySeeder extends Seeder
         $amenities = [
             [
                 'name' => 'WiFi',
-                'image' => 'amenity_image/001-wi-fi.png'
+                'image' => 'amenities_image/001-wi-fi.png'
             ],
             [
                 'name' => 'TV',
-                'image' => 'amenity_image/002-television.png'
+                'image' => 'amenities_image/002-television.png'
             ],
             [
                 'name' => 'Parcheggio',
-                'image' => 'amenity_image/003-parking.png'
+                'image' => 'amenities_image/003-parking.png'
             ],
             [
                 'name' => 'Piscina',
-                'image' => 'amenity_image/004-pool.png'
+                'image' => 'amenities_image/004-pool.png'
             ],
             [
                 'name' => 'Aria Condizionata',
-                'image' => 'amenity_image/006-air-conditioner.png'
+                'image' => 'amenities_image/006-air-conditioner.png'
             ],
             [
                 'name' => 'Phon',
-                'image' => 'amenity_image/007-hair-dryer.png'
+                'image' => 'amenities_image/007-hair-dryer.png'
             ],
             [
                 'name' => 'Palestra',
-                'image' => 'amenity_image/008-gym.png'
+                'image' => 'amenities_image/008-gym.png'
             ],
             [
                 'name' => 'Biancheria',
-                'image' => 'amenity_image/005-towel.png'
+                'image' => 'amenities_image/005-towel.png'
             ],
             [
                 'name' => 'Sauna',
-                'image' => 'amenity_image/004-jacuzzi.png'
+                'image' => 'amenities_image/004-jacuzzi.png'
             ],
             [
                 'name' => 'Grucce',
-                'image' => 'amenity_image/009-hanger.png'
+                'image' => 'amenities_image/009-hanger.png'
             ],
             [
                 'name' => 'Cassaforte',
-                'image' => 'amenity_image/010-safe.png'
+                'image' => 'amenities_image/010-safe.png'
             ],
             [
                 'name' => 'Lavatrice',
-                'image' => 'amenity_image/002-washing-machine.png'
+                'image' => 'amenities_image/002-washing-machine.png'
             ],
             [
                 'name' => 'Cucina',
-                'image' => 'amenity_image/003-restaurant.png'
+                'image' => 'amenities_image/003-restaurant.png'
             ],
             [
                 'name' => 'Ascensore',
-                'image' => 'amenity_image/005-elevator.png'
+                'image' => 'amenities_image/005-elevator.png'
             ],
             [
                 'name' => 'Accesso Disabili',
-                'image' => 'amenity_image/001-disability.png'
+                'image' => 'amenities_image/001-disability.png'
             ],
         ];
 

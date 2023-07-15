@@ -50,6 +50,20 @@
             <input class="form-check-input" name="visibility" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
         </div>
 
+        <div class="form-group mb-3">
+            @foreach ($amenities as $elem)
+            <div class="form-check">
+                <input class="form-check-input" 
+                    type="checkbox" 
+                    name="amenities[]"
+                    value="{{$elem->id}}" 
+                    id="apartments-checkbox-{{$elem->id}}">
+                <img src="{{asset('storage/' . $elem->image)}}" alt="{{$elem->name}}" style="height: 20px">
+                <label class="form-check-label" for="">{{$elem->name}}</label>
+            </div>
+            @endforeach
+        </div>
+
         
         {{-- <div class="mb-3">
             <label for="" class="form-label">TYPE</label>
