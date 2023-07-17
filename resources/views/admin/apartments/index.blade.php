@@ -15,6 +15,8 @@
                             <h4 class="card-title">{{$elem->title}}</h4>
                             <p class="card-text">{{$elem->address}}</p>
                         </div>
+                        {{-- bottone modifica --}}
+                        <a class="btn btn-primary" href="{{route('apartments.edit', $elem)}}">Modifica</a>
                     </div>
                 </div>
             @endforeach
