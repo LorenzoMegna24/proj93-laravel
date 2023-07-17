@@ -48,7 +48,8 @@
 
         <div class="form-group my-2">
             <label class="form-label" for="">INDIRIZZO</label>
-            <input class="form-control" name="address" type="text" value="{{old('address') ?? $apartment->address}}">
+            <input id="address" class="form-control" name="address" type="text" value="{{old('address') ?? $apartment->address}}">
+            <ul id="address-list" class="list-group"></ul>
         </div>
 
         {{-- campo input file --}}
@@ -57,9 +58,12 @@
             <input class="form-control" type="file" name="image" aria-describedby="fileHelpId" value="{{old('image') ?? $apartment->image}}">
         </div>
 
-        <div class="form-check form-switch">
-            <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
-            <input class="form-check-input" name="visibility" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+        <div class="my-2 col-md-3">
+            <label for="visibility" class="form-label">Visibile</label>
+            <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
+                <option value="1" @if($apartment->visibility == 1) selected @endif>Si</option>
+                <option value="0" @if($apartment->visibility == 0) selected @endif>No</option>
+            </select>
         </div>
 
         <div class="form-group mb-3">

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreApartmentRequest extends FormRequest
+class UpdateApartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,24 +33,6 @@ class StoreApartmentRequest extends FormRequest
             'image' => 'required|image|max:6000',
             'visibility' =>'required',
             'amenities'=> 'required|exists:amenities,id'
-        ];
-    }
-
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'title.required' => 'A title is required',
-            'room.required' => 'A room is required',
-            'bathroom.required' => 'A bathroom is required',
-            'bed.required' => 'A bed is required',
-            'address.required' => 'A address is required',
-            'image.required' => 'A image is required',
         ];
     }
 }
