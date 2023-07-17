@@ -120,9 +120,9 @@ class ApartmentController extends Controller
      * @param  \App\Models\Admin\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-        $form_data = $request->all();
+        $form_data = $request->validated();
 
         $slug = Apartment::generateSlug($request->title);
 
@@ -180,6 +180,6 @@ class ApartmentController extends Controller
 
         $apartment->delete();
 
-        return redirect()->route('admin.apartment.index');
+        return redirect()->route('apartments.index');
     }
 }

@@ -25,5 +25,11 @@
            <img class="me-3" src="{{asset('storage/' . $elem->image)}}" alt="{{$elem->name}}" style="height: 20px">
         @endforeach
         <a class="btn btn-primary" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
+
+        <form action="{{route('apartments.destroy', $apartment)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Elimina</button>
+        </form>
     </div>
 @endsection
