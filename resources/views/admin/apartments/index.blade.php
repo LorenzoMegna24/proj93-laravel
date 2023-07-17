@@ -12,11 +12,9 @@
                     <div class="card">
                         <img class="card-img-top" src="{{asset('storage/' . $elem->image)}}" alt="Title">
                         <div class="card-body">
-                            <h4 class="card-title">{{$elem->title}}</h4>
+                            <a  class="card-title fs-4" href="{{route('apartments.show', $elem)}}">{{$elem->title}}</a>
                             <p class="card-text">{{$elem->address}}</p>
-                        </div>
-                        {{-- bottone modifica --}}
-                        <a class="btn btn-primary" href="{{route('apartments.edit', $elem)}}">Modifica</a>
+                        </div>              
                     </div>
                 </div>
             @endforeach
