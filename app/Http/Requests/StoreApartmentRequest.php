@@ -25,10 +25,10 @@ class StoreApartmentRequest extends FormRequest
     {
         return [
             'title' => 'required|min:4|max:100',
-            'room' => 'required|min:1|max:20',
-            'bathroom' => 'required|max:20',
-            'bed' => 'required|min:1|max:20',
-            'sq_meters' => 'nullable|min:20|max:1000',
+            'room' => 'required|numeric|min:1|max:20',
+            'bathroom' => 'required|numeric|max:20',
+            'bed' => 'required|numeric|min:1|max:20',
+            'sq_meters' => 'nullable|numeric|min:20|max:1000',
             'address' => 'required|max:200',
             'image' => 'required|image|max:6000',
             'amenities'=> 'exists:amenities,id'
