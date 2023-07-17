@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Inserisci un nuovo progetto</h1>
+    <h1>Inserisci un nuovo appartamento</h1>
 
     @if($errors->any())
         <div class="alert alert-danger">
