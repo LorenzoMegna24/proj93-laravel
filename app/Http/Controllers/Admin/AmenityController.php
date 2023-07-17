@@ -15,7 +15,7 @@ class AmenityController extends Controller
      */
     public function index()
     {
-        // a
+        // a b
     }
 
     /**
