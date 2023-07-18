@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Illuminate\Support\Str;
 use App\Http\Requests\StoreApartmentRequest;
+use App\Http\Requests\UpdateApartmentRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
