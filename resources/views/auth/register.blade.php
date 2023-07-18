@@ -56,10 +56,8 @@
 
                         <div class="mb-4 row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -67,12 +65,16 @@
                                 @enderror
                             </div>
                         </div>
-
+                        
                         <div class="mb-4 row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
                             <div class="col-md-6">
+                                
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                
+                                <div id="password-confirm-error" class="invalid-feedback" style="display: none;">
+                                    <strong>{{ __('Le password non coincidono') }}</strong>
+                                </div>
                             </div>
                         </div>
 
@@ -104,3 +106,18 @@
     </div>
 </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#password-confirm').on('input', function() {
+            
+            if ($(this).val() !== $('#password').val()) {
+                
+                $('#password-confirm-error').show();
+            } else {
+                
+                $('#password-confirm-error').hide();
+            }
+        });
+    });
+</script>
