@@ -5,6 +5,12 @@
     <div class="d-flex justify-content-center">
         <a class="btn btn-primary my-3" href="{{route('apartments.create')}}">Inserisci nuovo appartamento</a>
     </div>
+    @if (session('error'))
+        <div class="alert alert-danger d-flex justify-content-center w-100">
+            <p class="w-50 m-0 p-0">{{ session('error') }}</p>
+        </div>
+    @endif
+
     <div class="container">
         <div class="row">
             @foreach ($apartments as $elem)

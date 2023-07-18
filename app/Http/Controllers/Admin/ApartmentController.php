@@ -14,6 +14,7 @@ use App\Http\Requests\UpdateApartmentRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
+
 class ApartmentController extends Controller
 {
     /**
@@ -110,6 +111,11 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        if (auth()->id() !== $apartment->user_id) {
+
+            return redirect()->route('apartments.index')->with('error', 'Non sei autorizzato a modificare questo appartamento');
+        }
+
         $amenities = Amenity::all();
         return view('admin.apartments.edit', compact('apartment', 'amenities'));
     }
@@ -123,6 +129,7 @@ class ApartmentController extends Controller
      */
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
+
         $form_data = $request->validated();
 
         $slug = Apartment::generateSlug($request->title);
