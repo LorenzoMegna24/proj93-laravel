@@ -30,7 +30,7 @@ class UpdateApartmentRequest extends FormRequest
             'bed' => 'required|numeric|min:1|max:20',
             'sq_meters' => 'nullable|numeric|min:20|max:1000',
             'address' => 'required|max:200',
-            'image' => 'required|image|max:6000',
+            'image' => 'image|max:6000',
             'visibility' =>'required',
             'amenities'=> 'required|exists:amenities,id'
         ];
