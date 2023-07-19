@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             AmenitySeeder::class,
             MessageSeeder::class,
             ViewSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
