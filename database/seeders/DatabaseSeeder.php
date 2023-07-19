@@ -22,12 +22,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            UserSeeder::class,
             ApartmentSeeder::class,
             SponsorSeeder::class,
             AmenitySeeder::class,
             MessageSeeder::class,
             ViewSeeder::class,
-            UserSeeder::class,
+
         ]);
     }
 }
