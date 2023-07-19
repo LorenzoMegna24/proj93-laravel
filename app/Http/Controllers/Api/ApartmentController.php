@@ -9,7 +9,7 @@ use App\Models\Admin\Apartment;
 class ApartmentController extends Controller
 {
     public function index(){
-        $apartments = Apartment::with('amenities','messages','views','sponsors')->paginate(3);
+        $apartments = Apartment::with('amenities','messages','views','sponsors')->paginate();
 
 	    return response()->json([
 	    	'success' => true,
