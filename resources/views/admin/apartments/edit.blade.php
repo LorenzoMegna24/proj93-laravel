@@ -16,7 +16,7 @@
     @endif
 
     
-    <form action="{{route('apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(this)">
 
         @csrf
         @method('PUT')
@@ -24,21 +24,25 @@
         <div class="form-group my-2">
             <label class="form-label" for="">TITOLO</label>
             <input class="form-control" type="text" name="title" value="{{old('title') ?? $apartment->title}}">
+            <span class="text-danger d-none" id="title-error">Inserisci un titolo</span>
         </div>
 
         <div class="form-group my-2">
             <label class="form-label" for="">STANZE</label>
             <input class="form-control" name="room" type="number" min="1" max="20" value="{{old('room') ?? $apartment->room}}">
+            <span class="text-danger d-none" id="room-error">Inserisci un numero di stanze</span>
         </div>
         
         <div class="form-group my-2">
             <label class="form-label" for="">BAGNI</label>
             <input class="form-control" name="bathroom" type="number" min="1" max="10" value="{{old('bathroom') ?? $apartment->bathroom}}">
+            <span class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</span>
         </div>
 
         <div class="form-group my-2">
             <label class="form-label" for="">POSTI LETTO</label>
             <input class="form-control" name="bed" type="number" min="1" max="40" value="{{old('bed') ?? $apartment->bed}}">
+            <span class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</span>
         </div>
 
         <div class="form-group my-2">
@@ -54,9 +58,14 @@
 
         {{-- campo input file --}}
         <div class="form-group my-2">
-            <label class="form-label" for="">CARICA IMMAGINE</label>
+            <label class="form-label" for="">MODIFICA IMMAGINE</label>
             <input class="form-control" type="file" name="image" aria-describedby="fileHelpId" value="{{old('image') ?? $apartment->image}}">
         </div>
+        <div class="form-group my-2">
+            <label class="form-label" for="">IMMAGINE CARICATA</label>
+            <img class="d-flex" style="height: 250px" src="{{ asset('storage/' . $apartment->image) }}" alt="Immagine appartamento">
+        </div>
+
 
         <div class="my-2 col-md-3">
             <label for="visibility" class="form-label">Visibile</label>
@@ -79,9 +88,49 @@
                 <label class="form-check-label" for="">{{$elem->name}}</label>
             </div>
             @endforeach
+            <span class="text-danger d-none" id="amenities-error">Seleziona almeno un servizio</span>
         </div>
 
         <button type="submit" class="btn btn-success my-3">MODIFICA APPARTAMENTO</button>
     </form>   
 </div>
 @endsection
+
+<script>    
+    function validateForm(form) {
+        // Nascondi tutti i messaggi di errore
+        document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
+
+        // Verifica che tutti i campi richiesti siano compilati
+        if (form.title.value == "") {
+            document.querySelector('#title-error').classList.remove('d-none');
+            return false;
+        }
+        if (form.room.value == "") {
+            document.querySelector('#room-error').classList.remove('d-none');
+            return false;
+        }
+        if (form.bathroom.value == "") {
+            document.querySelector('#bathroom-error').classList.remove('d-none');
+            return false;
+        }
+        if (form.bed.value == "") {
+            document.querySelector('#bed-error').classList.remove('d-none');
+            return false;
+        }
+
+        let amenitiesChecked = false;
+        form.querySelectorAll('[name="amenities[]"]').forEach(el => {
+            if (el.checked) amenitiesChecked = true;
+        });
+        if (!amenitiesChecked) {
+            document.querySelector('#amenities-error').classList.remove('d-none');
+            return false;
+        }
+
+        // Se tutti i controlli sono superati, restituisci true per consentire l'invio del modulo
+        return true;
+    }
+
+
+</script>
