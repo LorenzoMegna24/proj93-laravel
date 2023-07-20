@@ -6,9 +6,11 @@
         <a class="btn btn-primary my-3" href="{{route('apartments.create')}}">Inserisci nuovo appartamento</a>
     </div>
     @if (session('error'))
-        <div class="alert alert-danger d-flex justify-content-center w-100">
-            <p class="w-50 m-0 p-0">{{ session('error') }}</p>
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-danger">
+            <p class="m-0 p-0 text-center">{{ session('error') }}</p>
         </div>
+    </div>
     @endif
 
     <div class="container">
