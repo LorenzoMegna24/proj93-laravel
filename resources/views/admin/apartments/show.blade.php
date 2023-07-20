@@ -11,7 +11,7 @@
         <p>Stanze: {{$apartment->room}}</p>
         <p>Bagni: {{$apartment->bathroom}}</p>
         <p>Letti:{{$apartment->bed}}</p>
-        <p>Metri quadrati: {{$apartment->sq_meters}}</p>
+        <p>Metri quadrati: {{$apartment->sq_meters ? $apartment->sq_meters : '-'}}</p>
         <p>Indirizzo: {{$apartment->address}}</p>
         <p>Visibilità: 
             @if($apartment->visibility) 
