@@ -32,18 +32,60 @@
         <a class="btn btn-primary" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
         </div>
 
-        <form action="{{route('apartments.destroy', $apartment)}}" method="POST">
+        {{-- modale di conferma eliminazione --}}
+        <div class="modal" id="confirmationModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Conferma Eliminazione</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Sei sicuro di voler eliminare questo appartamento?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteApartment()">Elimina</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="formEliminate" action="{{route('apartments.destroy', $apartment)}}" method="POST" onsubmit="return showConfirmationModal(event)">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger mt-3">Elimina</button>
         </form>
     </div>
 @endsection
+
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
+    <script>
+        // Funzione per mostrare il modal di conferma
+        function showConfirmationModal(event) {
+            event.preventDefault(); // Blocca l'invio del form
+
+            const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {
+                keyboard: false
+            });
+
+            confirmationModal.show();
+        }
+
+        // Funzione chiamata quando l'utente fa clic su "Elimina" nel modal
+        function deleteApartment() {
+
+            // Ora puoi eseguire l'invio del form
+            const formElement = document.getElementById('formEliminate');
+            formElement.submit();
+        }
+
     </script>
 @endsection
