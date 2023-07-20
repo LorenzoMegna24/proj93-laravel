@@ -54,6 +54,7 @@
             <label class="form-label" for="">INDIRIZZO</label>
             <input id="address" class="form-control" name="address" type="text" value="{{old('address') ?? $apartment->address}}">
             <ul id="address-list" class="list-group"></ul>
+            <span class="text-danger d-none" id="address-error">Inserisci un indirizzo valido</span>
         </div>
 
         {{-- campo input file --}}
@@ -117,6 +118,10 @@
         if (form.bed.value == "") {
             document.querySelector('#bed-error').classList.remove('d-none');
             return false;
+        }
+        if (form.address.value == "") {
+        document.querySelector('#address-error').classList.remove('d-none');
+        return false;
         }
 
         let amenitiesChecked = false;
