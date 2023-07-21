@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\SponsorController;
 // });
 
 Route::get('/apartments',[ApartmentController::class, 'index']);
+Route::get('/apartments/{slug}',[ApartmentController::class, 'show']);
 Route::get('/amenities',[AmenityController::class, 'index']);
 Route::get('/messages',[MessageController::class, 'index']);
 Route::get('/views',[ViewController::class, 'index']);
