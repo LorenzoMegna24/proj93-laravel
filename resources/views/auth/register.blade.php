@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Registrati') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return validateForm(this)">
                         @csrf
 
                         <div class="mb-4 row">
@@ -58,33 +58,38 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo E-Mail*') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+                                <span class="text-danger d-none" id="email-error">Inserire indirizzo email</span>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+                                
                             </div>
+                            
                         </div>
 
                         <div class="mb-4 row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password*') }}</label>
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                                <span class="text-danger d-none" id="password-error">Inserire Password</span>
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+                                
                             </div>
+                            
                         </div>
                         
                         <div class="mb-4 row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password*') }}</label>
                             <div class="col-md-6">
                                 
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                                 
                                 <div id="password-confirm-error" class="invalid-feedback" style="display: none;">
                                     <strong>{{ __('Le password non coincidono') }}</strong>
@@ -111,6 +116,44 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+function validateForm(form) {
+    // Seleziona i campi email, password e password_confirmation dal modulo
+    const email = form.email.value;
+    const password = form.password.value;
+    const passwordConfirm = form.password_confirmation.value;
+
+    // Verifica se il campo email è vuoto
+    if (email === "") {
+        // Mostra un messaggio di errore se il campo email è vuoto
+        document.querySelector('#email-error').classList.remove('d-none');
+        return false;
+    } else {
+        // Nascondi il messaggio di errore se il campo email non è vuoto
+        document.querySelector('#email-error').classList.add('d-none');
+    }
+
+    // Verifica se il campo password è vuoto
+    if (password === "") {
+        // Mostra un messaggio di errore se il campo password è vuoto
+        document.querySelector('#password-error').classList.remove('d-none');
+        return false;
+    } else {
+        // Nascondi il messaggio di errore se il campo password non è vuoto
+        document.querySelector('#password-error').classList.add('d-none');
+    }
+
+    // Confronta i valori dei campi password e password_confirmation
+    if (password !== passwordConfirm) {
+        // Mostra un messaggio di errore se i valori non sono uguali
+        document.querySelector('#password-confirm-error').style.display = 'block';
+        return false;
+    } else {
+        // Nascondi il messaggio di errore se i valori sono uguali
+        document.querySelector('#password-confirm-error').style.display = 'none';
+        return true;
+    }
+}
+
     $(document).ready(function() {
         $('#password-confirm').on('input', function() {
             
@@ -123,4 +166,6 @@
             }
         });
     });
+
 </script>
+
