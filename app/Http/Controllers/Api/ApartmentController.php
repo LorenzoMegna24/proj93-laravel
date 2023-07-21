@@ -8,14 +8,32 @@ use App\Models\Admin\Apartment;
 
 class ApartmentController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$apartments = Apartment::with('amenities', 'messages', 'views', 'sponsors')->paginate(9);
+		// $apartments = Apartment::with('amenities', 'messages', 'views', 'sponsors')->paginate(9);
 
-		return response()->json([
+		// return response()->json([
+		// 	'success' => true,
+		// 	'apartments' => $apartments
+		// ]);
+
+
+		$query = Apartment::with('amenities');
+
+        if ($request->has('amenities_id')) {
+            $amenitiesId = explode(',', $request->amenities_id);
+            $query->whereHas('amenities', function($query) use ($amenitiesId){
+                $query->whereIn('id', $amenitiesId);
+            });
+        }
+
+        $apartments = $query->paginate(9);
+
+        return response()->json([
 			'success' => true,
 			'apartments' => $apartments
 		]);
+
 	}
 
 	public function show($slug)
