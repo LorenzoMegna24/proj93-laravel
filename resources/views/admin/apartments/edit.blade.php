@@ -104,49 +104,47 @@
     
 <script>  
 
-    function validateForm(form) {
-        // Nascondi tutti i messaggi di errore
-        document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
+function validateForm(form) {
+    // Nascondi tutti i messaggi di errore
+    document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
 
-        // Verifica che tutti i campi richiesti siano compilati
-        if (form.title.value == "") {
-            document.querySelector('#title-error').classList.remove('d-none');
-            return false;
-        }
-        if (form.room.value == "") {
-            document.querySelector('#room-error').classList.remove('d-none');
-            return false;
-        }
-        if (form.bathroom.value == "") {
-            document.querySelector('#bathroom-error').classList.remove('d-none');
-            return false;
-        }
-        if (form.bed.value == "") {
-            document.querySelector('#bed-error').classList.remove('d-none');
-            return false;
-        }
-        
-        const userInput = form.address.value.trim().toLowerCase();
-        console.log('User Input:', userInput);
-        const suggestedAddresses = Array.from(document.querySelectorAll('#address-list li')).map(li => li.textContent.toLowerCase());
-        console.log('Suggested Addresses:', suggestedAddresses);
-        if (form.address.value === "" || !suggestedAddresses.includes(userInput)) {
-            document.querySelector('#address-error').classList.remove('d-none');
-            return false;
-        }
-
-        let amenitiesChecked = false;
-        form.querySelectorAll('[name="amenities[]"]').forEach(el => {
-            if (el.checked) amenitiesChecked = true;
-        });
-        if (!amenitiesChecked) {
-            document.querySelector('#amenities-error').classList.remove('d-none');
-            return false;
-        }
-
-        // Se tutti i controlli sono superati, restituisci true per consentire l'invio del modulo
-        return true;
+    // Verifica che tutti i campi richiesti siano compilati
+    if (form.title.value.trim() === "") {
+        document.querySelector('#title-error').classList.remove('d-none');
+        return false;
+    }
+    if (form.room.value.trim() === "") {
+        document.querySelector('#room-error').classList.remove('d-none');
+        return false;
+    }
+    if (form.bathroom.value.trim() === "") {
+        document.querySelector('#bathroom-error').classList.remove('d-none');
+        return false;
+    }
+    if (form.bed.value.trim() === "") {
+        document.querySelector('#bed-error').classList.remove('d-none');
+        return false;
     }
 
+    const userInput = form.address.value.trim().toLowerCase();
+    const suggestedAddresses = Array.from(document.querySelectorAll('#address-list li')).map(li => li.textContent.toLowerCase());
+
+    if (form.address.value.trim() === "" || (suggestedAddresses.length > 0 && !suggestedAddresses.includes(userInput))) {
+        document.querySelector('#address-error').classList.remove('d-none');
+        return false;
+    }
+
+    let amenitiesChecked = false;
+    form.querySelectorAll('[name="amenities[]"]').forEach(el => {
+        if (el.checked) amenitiesChecked = true;
+    });
+    if (!amenitiesChecked) {
+        document.querySelector('#amenities-error').classList.remove('d-none');
+        return false;
+    }
+
+    // Se tutti i controlli sono superati, restituisci true per consentire l'invio del modulo
+    return true;
+}
 
 </script>

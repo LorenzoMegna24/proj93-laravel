@@ -133,6 +133,7 @@ class ApartmentController extends Controller
         $form_data = $request->validated();
 
         $slug = Apartment::generateSlug($request->title);
+        $slug = Apartment::generateUniqueSlug($request->title);
 
         $form_data['slug'] = $slug;
 
