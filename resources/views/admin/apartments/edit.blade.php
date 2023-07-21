@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 @extends('layouts.app')
 
 @section('content')
@@ -15,32 +18,32 @@
         </div>
     @endif
 
-    
+    <span class="fs-6 fst-italic">* campi obbligatori</span>
     <form action="{{route('apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(this)">
 
         @csrf
         @method('PUT')
 
         <div class="form-group my-2">
-            <label class="form-label" for="">TITOLO</label>
+            <label class="form-label" for="">TITOLO *</label>
             <input class="form-control" type="text" name="title" value="{{old('title') ?? $apartment->title}}">
             <span class="text-danger d-none" id="title-error">Inserisci un titolo</span>
         </div>
 
         <div class="form-group my-2">
-            <label class="form-label" for="">STANZE</label>
+            <label class="form-label" for="">STANZE *</label>
             <input class="form-control" name="room" type="number" min="1" max="20" value="{{old('room') ?? $apartment->room}}">
             <span class="text-danger d-none" id="room-error">Inserisci un numero di stanze</span>
         </div>
         
         <div class="form-group my-2">
-            <label class="form-label" for="">BAGNI</label>
+            <label class="form-label" for="">BAGNI *</label>
             <input class="form-control" name="bathroom" type="number" min="1" max="10" value="{{old('bathroom') ?? $apartment->bathroom}}">
             <span class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</span>
         </div>
 
         <div class="form-group my-2">
-            <label class="form-label" for="">POSTI LETTO</label>
+            <label class="form-label" for="">POSTI LETTO *</label>
             <input class="form-control" name="bed" type="number" min="1" max="40" value="{{old('bed') ?? $apartment->bed}}">
             <span class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</span>
         </div>
@@ -51,10 +54,9 @@
         </div>
 
         <div class="form-group my-2">
-            <label class="form-label" for="">INDIRIZZO</label>
-            <input id="address" class="form-control" name="address" type="text" value="{{old('address') ?? $apartment->address}}">
-            <ul id="address-list" class="list-group"></ul>
-            <span class="text-danger d-none" id="address-error">Inserisci un indirizzo valido</span>
+            <label class="form-label" for="">MODIFICA INDIRIZZO *</label>
+            <input id="address" class="form-control" name="address" type="text" value="{{old('address') ?? $apartment->address}}" placeholder="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
+            <span class="text-danger d-none" id="address-error">Seleziona un indirizzo valido dalla lista suggerita</span>
         </div>
 
         {{-- campo input file --}}
@@ -69,7 +71,7 @@
 
 
         <div class="my-2 col-md-3">
-            <label for="visibility" class="form-label">Visibile</label>
+            <label for="visibility" class="form-label">VISIBILITÀ APPARTAMENTO</label>
             <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
                 <option value="1" @if($apartment->visibility == 1) selected @endif>Si</option>
                 <option value="0" @if($apartment->visibility == 0) selected @endif>No</option>
@@ -77,6 +79,7 @@
         </div>
 
         <div class="form-group mb-3">
+            <label class="form-label" for="">SERVIZI *</label>
             @foreach ($amenities as $elem)
             <div class="form-check">
                 <input class="form-check-input" 
@@ -97,7 +100,9 @@
 </div>
 @endsection
 
-<script>    
+    
+<script>  
+
     function validateForm(form) {
         // Nascondi tutti i messaggi di errore
         document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
@@ -119,9 +124,12 @@
             document.querySelector('#bed-error').classList.remove('d-none');
             return false;
         }
-        if (form.address.value == "") {
-        document.querySelector('#address-error').classList.remove('d-none');
-        return false;
+
+        const userInput = form.address.value.trim().toLowerCase();
+        const suggestedAddresses = $("#address").autocomplete("option", "source").map(address => address.toLowerCase());
+        if (form.address.value === "" || !suggestedAddresses.includes(userInput)) {
+            document.querySelector('#address-error').classList.remove('d-none');
+            return false;
         }
 
         let amenitiesChecked = false;

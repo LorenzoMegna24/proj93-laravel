@@ -27,20 +27,9 @@ input.addEventListener("keyup", function () {
 });
 
 function handleResponse(response) {
-    console.log(response.data.results);
     const results = response.data.results;
-    addressList.innerHTML = '';
-    for (let i = 0; i < results.length; i++) {
-        const resultList = results[i].address.freeformAddress;
-        const address = document.createElement('li');
-        address.innerHTML = resultList;
-        address.classList.add('list-group-item');
-        address.classList.add('list-group-item-action');
-        address.style = 'cursor: pointer';
-        address.addEventListener('click', function () {
-            input.value = resultList;
-            addressList.innerHTML = '';
-        });
-        addressList.appendChild(address);
-    }
+    const addresses = results.map(result => result.address.freeformAddress);
+    $("#address").autocomplete({
+        source: addresses
+    });
 }
