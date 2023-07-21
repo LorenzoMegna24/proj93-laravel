@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 @extends('layouts.app')
 
 @section('content')
@@ -15,29 +18,33 @@
         </div>
     @endif
 
-    
-    <form action="{{route('apartments.store')}}" method="POST" enctype="multipart/form-data">
+    <span class="fs-6 fst-italic">* campi obbligatori</span>
+    <form action="{{route('apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(this)">
 
         @csrf
 
         <div class="form-group my-2">
-            <label class="form-label" for="">TITOLO</label>
+            <label class="form-label" for="">TITOLO *</label>
             <input class="form-control" type="text" name="title">
+            <span class="text-danger d-none" id="title-error">Inserisci un titolo</span>
         </div>
 
         <div class="form-group my-2">
-            <label class="form-label" for="">STANZE</label>
+            <label class="form-label" for="">STANZE *</label>
             <input class="form-control" name="room" type="number" min="1" max="20">
+            <span class="text-danger d-none" id="room-error">Inserisci un numero di stanze</span>
         </div>
         
         <div class="form-group my-2">
-            <label class="form-label" for="">BAGNI</label>
+            <label class="form-label" for="">BAGNI *</label>
             <input class="form-control" name="bathroom" type="number" min="1" max="10">
+            <span class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</span>
         </div>
 
         <div class="form-group my-2">
-            <label class="form-label" for="">POSTI LETTO</label>
+            <label class="form-label" for="">POSTI LETTO *</label>
             <input class="form-control" name="bed" type="number" min="1" max="40">
+            <span class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</span>
         </div>
 
         <div class="form-group my-2">
@@ -46,19 +53,20 @@
         </div>
 
         <div class="form-group my-2">
-            <label class="form-label" for="">INDIRIZZO</label>
-            <input id="address" class="form-control" name="address" type="text">
-            <ul id="address-list" class="list-group"></ul>
+            <label class="form-label" for="">INDIRIZZO *</label>
+            <input id="address" class="form-control" name="address" type="text" value="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
+            <span class="text-danger d-none" id="address-error">Seleziona un indirizzo valido dalla lista suggerita</span>
         </div>
 
         {{-- campo input file --}}
         <div class="form-group my-2">
-            <label class="form-label" for="">CARICA IMMAGINE</label>
+            <label class="form-label" for="">CARICA IMMAGINE *</label>
             <input class="form-control" type="file" name="image" aria-describedby="fileHelpId">
+            <span class="text-danger d-none" id="image-error">Carica una immagine del tuo appartamento</span>
         </div>
 
         <div class="my-2 col-md-3">
-            <label for="visibility" class="form-label">Visibile</label>
+            <label for="visibility" class="form-label">VISIBILITÀ APPARTAMENTO *</label>
             <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
                 <option value="1">Si</option>
                 <option value="0">No</option>
@@ -66,6 +74,7 @@
         </div>
 
         <div class="form-group mb-3">
+            <label class="form-label" for="">SERVIZI *</label>
             @foreach ($amenities as $elem)
             <div class="form-check">
                 <input class="form-check-input" 
@@ -77,52 +86,61 @@
                 <label class="form-check-label" for="">{{$elem->name}}</label>
             </div>
             @endforeach
+            <span class="text-danger d-none" id="amenities-error">Seleziona almeno un servizio</span>
         </div>
-
-        
-        {{-- <div class="mb-3">
-            <label for="" class="form-label">TYPE</label>
-            <select class="form-select form-select-lg @error ('type_id') is-invalid @enderror" name="type_id" id="project-type">
-                <option selected>Select one</option>
-
-                @foreach ($types as $elem)
-
-                <option value="{{$elem->id}}">{{$elem->name_type}}</option>
-                    
-                @endforeach
-
-            </select>
-            <div>
-                @error('type_id')
-                    <div class="alert alert-danger">
-                        {{$message}}
-                    </div>
-                @enderror
-            </div>
-
-        </div>
-
-        <div class="form-groups d-flex justify-content-between">
-            @foreach ($technologies as $elem)
-                <div class="form-check">
-                    <input class="form-check-input" 
-                    type="checkbox" 
-                    name="technologies[]"
-                    value="{{ $elem->id }}" 
-                    id="technology-{{ $elem->id }}">
-                    <label class="form-check-label" for="technology-{{ $elem->id }}">
-                        {{ $elem->name_technology }}
-                    </label>
-                </div>
-            @endforeach
-        </div> --}}
-
-        {{-- <div class="form-group my-2">
-            <label class="form-label" for="">SLUG</label>
-            <input class="form-control" type="text" name="slug">
-        </div> --}}
 
         <button type="submit" class="btn btn-success my-3">AGGIUNGI APPARTAMENTO</button>
     </form>   
 </div>
 @endsection
+
+<script>
+    
+    function validateForm(form) {
+        // Nascondi tutti i messaggi di errore
+        document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
+
+        // Verifica che tutti i campi richiesti siano compilati
+        if (form.title.value == "" || form.title.value.length < 4) {
+        document.querySelector('#title-error').textContent = 'Inserisci un titolo di almeno 4 caratteri';
+        document.querySelector('#title-error').classList.remove('d-none');
+        return false;
+}
+        if (form.room.value == "") {
+            document.querySelector('#room-error').classList.remove('d-none');
+            return false;
+        }
+        if (form.bathroom.value == "") {
+            document.querySelector('#bathroom-error').classList.remove('d-none');
+            return false;
+        }
+        if (form.bed.value == "") {
+            document.querySelector('#bed-error').classList.remove('d-none');
+            return false;
+        }
+
+        const userInput = form.address.value.trim().toLowerCase();
+        const suggestedAddresses = $("#address").autocomplete("option", "source").map(address => address.toLowerCase());
+        if (form.address.value === "" || !suggestedAddresses.includes(userInput)) {
+            document.querySelector('#address-error').classList.remove('d-none');
+            return false;
+        }
+
+        if (!form.image.value) {
+        document.querySelector('#image-error').classList.remove('d-none');
+        return false;
+        }
+
+        let amenitiesChecked = false;
+        form.querySelectorAll('[name="amenities[]"]').forEach(el => {
+            if (el.checked) amenitiesChecked = true;
+        });
+        if (!amenitiesChecked) {
+            document.querySelector('#amenities-error').classList.remove('d-none');
+            return false;
+        }
+
+        // Se tutti i controlli sono superati, restituisci true per consentire l'invio del modulo
+        return true;
+    }
+</script>
