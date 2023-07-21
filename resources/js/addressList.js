@@ -8,11 +8,9 @@ input.addEventListener("keyup", function () {
     if (userInput.trim().length < 3) {
         return;
     }
-    input.addEventListener("input", function () {
-        if (input.value === '') {
-            addressList.innerHTML = '';
-        }
-    });
+    // Rimuovi l'evento 'input' per evitare duplicazioni
+    input.removeEventListener("input", clearAddressList);
+
     const apiUrl = 'https://api.tomtom.com/search/2/geocode/';
     delete axios.defaults.headers.common['X-Requested-With'];
     axios.get(apiUrl + userInput + '.json', {
@@ -29,7 +27,35 @@ input.addEventListener("keyup", function () {
 function handleResponse(response) {
     const results = response.data.results;
     const addresses = results.map(result => result.address.freeformAddress);
-    $("#address").autocomplete({
-        source: addresses
+
+    // Aggiorna la lista degli indirizzi suggeriti nel div con id "address-list"
+    const addressList = document.getElementById('address-list');
+    addressList.innerHTML = '';
+
+    addresses.forEach(address => {
+        const addressElement = document.createElement('li');
+        addressElement.textContent = address;
+
+        // Aggiungi gli attributi e le classi agli elementi "li"
+        addressElement.classList.add('list-group-item');
+        addressElement.classList.add('list-group-item-action');
+        addressElement.style.cursor = 'pointer';
+
+        // Aggiungi un evento di click a ciascun elemento "li"
+        addressElement.addEventListener('click', function () {
+            input.value = address;
+            addressList.classList.add('d-none'); // Nascondi la lista degli indirizzi suggeriti dopo la selezione
+        });
+
+        addressList.appendChild(addressElement);
     });
+
+    console.log(addresses);
 }
+
+function clearAddressList() {
+    addressList.innerHTML = '';
+}
+
+
+

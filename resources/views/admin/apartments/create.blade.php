@@ -54,7 +54,8 @@
 
         <div class="form-group my-2">
             <label class="form-label" for="">INDIRIZZO *</label>
-            <input id="address" class="form-control" name="address" type="text" value="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
+            <input id="address" class="form-control" name="address" type="text" placeholder="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
+            <ul class="list-group box-list" id="address-list"></ul>
             <span class="text-danger d-none" id="address-error">Seleziona un indirizzo valido dalla lista suggerita</span>
         </div>
 
@@ -120,7 +121,9 @@
         }
 
         const userInput = form.address.value.trim().toLowerCase();
-        const suggestedAddresses = $("#address").autocomplete("option", "source").map(address => address.toLowerCase());
+        console.log('User Input:', userInput);
+        const suggestedAddresses = Array.from(document.querySelectorAll('#address-list li')).map(li => li.textContent.toLowerCase());
+        console.log('Suggested Addresses:', suggestedAddresses);
         if (form.address.value === "" || !suggestedAddresses.includes(userInput)) {
             document.querySelector('#address-error').classList.remove('d-none');
             return false;
