@@ -23,7 +23,7 @@ class AmenityApartmentSeeder extends Seeder
 
 
             foreach ($apartments as $apartment) {
-                $selectedAmenities = $amenities->random(5);
+                $selectedAmenities = $amenities->random(9);
                 $apartment->amenities()->attach(
                     $selectedAmenities->pluck('id')->toArray()
                 );

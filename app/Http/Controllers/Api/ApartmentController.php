@@ -8,39 +8,45 @@ use App\Models\Admin\Apartment;
 
 class ApartmentController extends Controller
 {
-	public function index(Request $request)
-	{
-		// $apartments = Apartment::with('amenities', 'messages', 'views', 'sponsors')->paginate(9);
+    public function index(Request $request)
+    {
+        // $apartments = Apartment::with('amenities', 'messages', 'views', 'sponsors')->paginate(9);
 
-		// return response()->json([
-		// 	'success' => true,
-		// 	'apartments' => $apartments
-		// ]);
+        // return response()->json([
+        // 	'success' => true,
+        // 	'apartments' => $apartments
+        // ]);
 
 
-		$query = Apartment::with('amenities');
+        $query = Apartment::with('amenities');
 
         if ($request->has('amenities_id')) {
             $amenitiesId = explode(',', $request->amenities_id);
-            $query->whereHas('amenities', function($query) use ($amenitiesId){
+            $query->whereHas('amenities', function ($query) use ($amenitiesId) {
                 $query->whereIn('id', $amenitiesId);
-            });
+            }, '=', count($amenitiesId));
         }
 
         $apartments = $query->paginate(9);
 
-        return response()->json([
-			'success' => true,
-			'apartments' => $apartments
-		]);
+        if ($apartments->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Non ci sono appartamenti che corrispondono ai filtri selezionati'
+            ]);
+        } else {
+            return response()->json([
+                'success' => true,
+                'apartments' => $apartments
+            ]);
+        }
+    }
 
-	}
-
-	public function show($slug)
+    public function show($slug)
     {
-        $apartment = Apartment::with( 'amenities', 'messages', 'views', 'sponsors' )-> where('slug', $slug )->first();
+        $apartment = Apartment::with('amenities', 'messages', 'views', 'sponsors')->where('slug', $slug)->first();
 
-        if ($apartment){
+        if ($apartment) {
             return response()->json([
                 'success' => true,
                 'apartment' => $apartment
@@ -49,7 +55,7 @@ class ApartmentController extends Controller
             return response()->json([
                 'success' => false,
                 'error' => 'non ci sono appartamenti'
-                ]);
-            }
+            ]);
+        }
     }
 }
