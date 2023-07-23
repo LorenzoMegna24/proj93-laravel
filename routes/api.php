@@ -23,9 +23,10 @@ use App\Http\Controllers\Api\SponsorController;
 //     return $request->user();
 // });
 
-Route::get('/apartments',[ApartmentController::class, 'index']);
-Route::get('/apartments/{slug}',[ApartmentController::class, 'show']);
-Route::get('/amenities',[AmenityController::class, 'index']);
-Route::get('/messages',[MessageController::class, 'index']);
-Route::get('/views',[ViewController::class, 'index']);
-Route::get('/sponsors',[SponsorController::class, 'index']);
+Route::get('/apartments', [ApartmentController::class, 'index']);
+Route::get('/apartments/{slug}', [ApartmentController::class, 'show']);
+Route::get('/amenities', [AmenityController::class, 'index']);
+Route::get('/messages', [MessageController::class, 'index']);
+Route::get('/views', [ViewController::class, 'index']);
+Route::get('/sponsors', [SponsorController::class, 'index']);
+Route::post('/messages', [MessageController::class, 'store']);
