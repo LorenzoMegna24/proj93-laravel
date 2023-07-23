@@ -31,6 +31,7 @@ function handleResponse(response) {
     // Aggiorna la lista degli indirizzi suggeriti nel div con id "address-list"
     const addressList = document.getElementById('address-list');
     addressList.innerHTML = '';
+    addressList.classList.remove('d-none'); // Mostra la lista degli indirizzi suggeriti
 
     addresses.forEach(address => {
         const addressElement = document.createElement('li');
@@ -45,6 +46,8 @@ function handleResponse(response) {
         addressElement.addEventListener('click', function () {
             input.value = address;
             addressList.classList.add('d-none'); // Nascondi la lista degli indirizzi suggeriti dopo la selezione
+            // Riaggiungi l'evento 'input' per mostrare di nuovo la lista degli indirizzi suggeriti
+            input.addEventListener("input", clearAddressList);
         });
 
         addressList.appendChild(addressElement);
@@ -52,6 +55,7 @@ function handleResponse(response) {
 
     console.log(addresses);
 }
+
 
 function clearAddressList() {
     addressList.innerHTML = '';
