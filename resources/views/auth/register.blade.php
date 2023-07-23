@@ -59,7 +59,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
-                                <span class="text-danger d-none" id="email-error">Inserire indirizzo email</span>
+                                <strong class="text-danger d-none" id="email-error">Inserire indirizzo email</strong>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -74,7 +74,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password*') }}</label>
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
-                                <span class="text-danger d-none" id="password-error">Inserire Password</span>
+                                <strong class="text-danger d-none" id="password-error">Inserire Password</strong>
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -91,7 +91,7 @@
                                 
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                                 
-                                <div id="password-confirm-error" class="invalid-feedback" style="display: none;">
+                                <div id="password-confirm-error" class="text-danger" style="display: none;">
                                     <strong>{{ __('Le password non coincidono') }}</strong>
                                 </div>
                             </div>
@@ -122,11 +122,13 @@ function validateForm(form) {
     const password = form.password.value;
     const passwordConfirm = form.password_confirmation.value;
 
+    let isValid = true;
+
     // Verifica se il campo email è vuoto
     if (email === "") {
         // Mostra un messaggio di errore se il campo email è vuoto
         document.querySelector('#email-error').classList.remove('d-none');
-        return false;
+        isValid = false;
     } else {
         // Nascondi il messaggio di errore se il campo email non è vuoto
         document.querySelector('#email-error').classList.add('d-none');
@@ -136,7 +138,7 @@ function validateForm(form) {
     if (password === "") {
         // Mostra un messaggio di errore se il campo password è vuoto
         document.querySelector('#password-error').classList.remove('d-none');
-        return false;
+        isValid = false;
     } else {
         // Nascondi il messaggio di errore se il campo password non è vuoto
         document.querySelector('#password-error').classList.add('d-none');
@@ -146,12 +148,13 @@ function validateForm(form) {
     if (password !== passwordConfirm) {
         // Mostra un messaggio di errore se i valori non sono uguali
         document.querySelector('#password-confirm-error').style.display = 'block';
-        return false;
+        isValid = false;
     } else {
         // Nascondi il messaggio di errore se i valori sono uguali
         document.querySelector('#password-confirm-error').style.display = 'none';
-        return true;
     }
+
+    return isValid;
 }
 
     $(document).ready(function() {

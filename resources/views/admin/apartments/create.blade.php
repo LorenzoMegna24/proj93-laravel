@@ -26,25 +26,25 @@
         <div class="form-group my-2">
             <label class="form-label" for="">TITOLO *</label>
             <input class="form-control" type="text" name="title">
-            <span class="text-danger d-none" id="title-error">Inserisci un titolo</span>
+            <strong class="text-danger d-none" id="title-error">Inserisci un titolo</strong>
         </div>
 
         <div class="form-group my-2">
             <label class="form-label" for="">STANZE *</label>
             <input class="form-control" name="room" type="number" min="1" max="20">
-            <span class="text-danger d-none" id="room-error">Inserisci un numero di stanze</span>
+            <strong class="text-danger d-none" id="room-error">Inserisci un numero di stanze</strong>
         </div>
         
         <div class="form-group my-2">
             <label class="form-label" for="">BAGNI *</label>
             <input class="form-control" name="bathroom" type="number" min="1" max="10">
-            <span class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</span>
+            <strong class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</strong>
         </div>
 
         <div class="form-group my-2">
             <label class="form-label" for="">POSTI LETTO *</label>
             <input class="form-control" name="bed" type="number" min="1" max="40">
-            <span class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</span>
+            <strong class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</strong>
         </div>
 
         <div class="form-group my-2">
@@ -56,14 +56,14 @@
             <label class="form-label" for="">INDIRIZZO *</label>
             <input id="address" class="form-control" name="address" type="text" placeholder="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
             <ul class="list-group box-list" id="address-list"></ul>
-            <span class="text-danger d-none" id="address-error">Seleziona un indirizzo valido dalla lista suggerita</span>
+            <strong class="text-danger d-none" id="address-error">Seleziona un indirizzo valido dalla lista suggerita</strong>
         </div>
 
         {{-- campo input file --}}
         <div class="form-group my-2">
             <label class="form-label" for="">CARICA IMMAGINE *</label>
             <input class="form-control" type="file" name="image" aria-describedby="fileHelpId">
-            <span class="text-danger d-none" id="image-error">Carica una immagine del tuo appartamento</span>
+            <strong class="text-danger d-none" id="image-error">Carica una immagine del tuo appartamento</strong>
         </div>
 
         <div class="my-2 col-md-3">
@@ -87,7 +87,7 @@
                 <label class="form-check-label" for="">{{$elem->name}}</label>
             </div>
             @endforeach
-            <span class="text-danger d-none" id="amenities-error">Seleziona almeno un servizio</span>
+            <strong class="text-danger d-none" id="amenities-error">Seleziona almeno un servizio</strong>
         </div>
 
         <button type="submit" class="btn btn-success my-3">AGGIUNGI APPARTAMENTO</button>
@@ -98,52 +98,54 @@
 <script>
     
     function validateForm(form) {
-        // Nascondi tutti i messaggi di errore
-        document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
+    // Nascondi tutti i messaggi di errore
+    document.querySelectorAll('.text-danger').forEach(el => el.classList.add('d-none'));
 
-        // Verifica che tutti i campi richiesti siano compilati
-        if (form.title.value == "" || form.title.value.length < 4) {
+    let isValid = true;
+
+    // Verifica che tutti i campi richiesti siano compilati
+    if (form.title.value == "" || form.title.value.length < 4) {
         document.querySelector('#title-error').textContent = 'Inserisci un titolo di almeno 4 caratteri';
         document.querySelector('#title-error').classList.remove('d-none');
-        return false;
-}
-        if (form.room.value == "") {
-            document.querySelector('#room-error').classList.remove('d-none');
-            return false;
-        }
-        if (form.bathroom.value == "") {
-            document.querySelector('#bathroom-error').classList.remove('d-none');
-            return false;
-        }
-        if (form.bed.value == "") {
-            document.querySelector('#bed-error').classList.remove('d-none');
-            return false;
-        }
-
-        const userInput = form.address.value.trim().toLowerCase();
-        console.log('User Input:', userInput);
-        const suggestedAddresses = Array.from(document.querySelectorAll('#address-list li')).map(li => li.textContent.toLowerCase());
-        console.log('Suggested Addresses:', suggestedAddresses);
-        if (form.address.value === "" || !suggestedAddresses.includes(userInput)) {
-            document.querySelector('#address-error').classList.remove('d-none');
-            return false;
-        }
-
-        if (!form.image.value) {
-        document.querySelector('#image-error').classList.remove('d-none');
-        return false;
-        }
-
-        let amenitiesChecked = false;
-        form.querySelectorAll('[name="amenities[]"]').forEach(el => {
-            if (el.checked) amenitiesChecked = true;
-        });
-        if (!amenitiesChecked) {
-            document.querySelector('#amenities-error').classList.remove('d-none');
-            return false;
-        }
-
-        // Se tutti i controlli sono superati, restituisci true per consentire l'invio del modulo
-        return true;
+        isValid = false;
     }
+    if (form.room.value == "") {
+        document.querySelector('#room-error').classList.remove('d-none');
+        isValid = false;
+    }
+    if (form.bathroom.value == "") {
+        document.querySelector('#bathroom-error').classList.remove('d-none');
+        isValid = false;
+    }
+    if (form.bed.value == "") {
+        document.querySelector('#bed-error').classList.remove('d-none');
+        isValid = false;
+    }
+
+    const userInput = form.address.value.trim().toLowerCase();
+    console.log('User Input:', userInput);
+    const suggestedAddresses = Array.from(document.querySelectorAll('#address-list li')).map(li => li.textContent.toLowerCase());
+    console.log('Suggested Addresses:', suggestedAddresses);
+    if (form.address.value === "" || !suggestedAddresses.includes(userInput)) {
+        document.querySelector('#address-error').classList.remove('d-none');
+        isValid = false;
+    }
+
+    if (!form.image.value) {
+        document.querySelector('#image-error').classList.remove('d-none');
+        isValid = false;
+    }
+
+    let amenitiesChecked = false;
+    form.querySelectorAll('[name="amenities[]"]').forEach(el => {
+        if (el.checked) amenitiesChecked = true;
+    });
+    if (!amenitiesChecked) {
+        document.querySelector('#amenities-error').classList.remove('d-none');
+        isValid = false;
+    }
+
+    // Se tutti i controlli sono superati, restituisci true per consentire l'invio del modulo
+    return isValid;
+}
 </script>

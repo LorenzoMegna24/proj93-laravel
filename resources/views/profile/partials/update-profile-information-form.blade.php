@@ -37,6 +37,15 @@
             @enderror
         </div>
 
+        <div class="mb-2">
+                    <label for="birth_date">{{__('Data di nascita')}}</label>
+                    <input class="form-control" type="date" name="birth_date" id="birth_date" autocomplete="birth_date" value="{{old('birth_date', $user->birth_date)}}"  autofocus>
+                    @error('birth_date')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->get('birth_date')}}</strong>
+                    </span>
+                    @enderror
+        </div>
 
         <div class="mb-2">
             <label for="email">
@@ -69,17 +78,6 @@
             </div>
             @endif
         </div>
-
-        <div class="mb-2">
-            <label for="birth_date">{{__('Data di nascita')}}</label>
-            <input class="form-control" type="date" name="birth_date" id="birth_date" autocomplete="birth_date" value="{{old('birth_date', $user->birth_date)}}"  autofocus>
-            @error('birth_date')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->get('birth_date')}}</strong>
-            </span>
-            @enderror
-        </div>
-
 
         <div class="d-flex align-items-center gap-4">
             <button class="btn btn-primary" type="submit">{{ __('Salva') }}</button>
