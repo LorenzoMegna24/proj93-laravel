@@ -32,6 +32,8 @@
         <a class="btn btn-primary" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
         </div>
 
+        <button class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Messaggi</button>
+
         {{-- modale di conferma eliminazione --}}
         <div class="modal" id="confirmationModal" tabindex="-1">
             <div class="modal-dialog">
@@ -50,6 +52,30 @@
                 </div>
             </div>
         </div>
+
+                
+        {{--offcanvas messaggi--}}
+                
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Messaggi per {{$apartment->title}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                @foreach ($apartment->messages as $message)
+                    <h4>da {{$message->mail}}</h4>
+                    <ul>
+                        <li>{{ $message->content }}</li>
+                    </ul>
+                @endforeach
+
+                @if ($apartment->messages->isEmpty())
+                    <h6>non ci sono messaggi per questo appartamento</h6>
+                @endif
+
+            </div>
+        </div>
+
 
         <form id="formEliminate" action="{{route('apartments.destroy', $apartment)}}" method="POST" onsubmit="return showConfirmationModal(event)">
             @csrf
