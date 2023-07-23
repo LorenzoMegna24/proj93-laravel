@@ -20,6 +20,18 @@ class ApartmentController extends Controller
 
         $query = Apartment::with('amenities');
 
+        if ($request->has('latitude') && $request->has('longitude')) {
+            $latitude = $request->latitude;
+            $longitude = $request->longitude;
+            $radius = 20; // Raggio di ricerca in km
+
+            // Utilizza la formula di Haversine per calcolare la distanza tra due punti sulla superficie terrestre
+            $query->selectRaw("*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) AS distance", [$latitude, $longitude, $latitude])
+                ->havingRaw("distance < ?", [$radius])
+                ->orderBy('distance', 'ASC');
+        }
+
+
         if ($request->has('amenities_id')) {
             $amenitiesId = explode(',', $request->amenities_id);
             $query->whereHas('amenities', function ($query) use ($amenitiesId) {
