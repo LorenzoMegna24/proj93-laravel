@@ -27,6 +27,14 @@ class ApartmentController extends Controller
             }, '=', count($amenitiesId));
         }
 
+        if ($request->has('min_rooms')) {
+            $query->where('room', '>=', $request->min_rooms);
+        }
+
+        if ($request->has('min_beds')) {
+            $query->where('bed', '>=', $request->min_beds);
+        }
+
         $apartments = $query->paginate(9);
 
         if ($apartments->isEmpty()) {
