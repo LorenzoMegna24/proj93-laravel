@@ -7,7 +7,36 @@
 @section('content')
     <div class="container">
         <h1>Appartamento: {{$apartment->title}}</h1>
-        <img style="height: 250px" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
+
+        <div class="d-flex">
+
+            <img style="height: 300px" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
+            <aside>
+                
+                <table class="table caption-top ms-2">
+                    <caption class="fs-3 fw-bold">Mesaggi per l'Appartamento</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Cognome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contenuto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($apartment->messages as $elem)
+                        <tr>
+                            <td>{{$elem->name}}</td>
+                            <td>{{$elem->surname}}</td>
+                            <td>{{$elem->mail}}</td>
+                            <td>{{$elem->content}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </aside>
+        </div>
+
         <p>Stanze: {{$apartment->room}}</p>
         <p>Bagni: {{$apartment->bathroom}}</p>
         <p>Letti:{{$apartment->bed}}</p>

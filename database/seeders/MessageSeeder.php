@@ -22,7 +22,7 @@ class MessageSeeder extends Seeder
                 'name' => 'prova',
                 'surname' => 'messaggio',
                 'date' => '2022-06-30 11.18.50',
-                'content' => 'messaggio di prova',
+                'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ],
             [
                 'apartment_id' => 1,
@@ -30,7 +30,7 @@ class MessageSeeder extends Seeder
                 'name' => 'prova',
                 'surname' => 'messaggio',
                 'date' => '2022-06-30 11.18.50',
-                'content' => 'messaggio di prova',
+                'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ],
             [
                 'apartment_id' => 3,
@@ -38,7 +38,7 @@ class MessageSeeder extends Seeder
                 'name' => 'prova',
                 'surname' => 'messaggio',
                 'date' => '2022-06-30 11.18.50',
-                'content' => 'messaggio di prova',
+                'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ],
             [
                 'apartment_id' => 4,
@@ -46,7 +46,7 @@ class MessageSeeder extends Seeder
                 'name' => 'prova',
                 'surname' => 'messaggio',
                 'date' => '2022-06-30 11.18.50',
-                'content' => 'messaggio di prova',
+                'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ],
             [
                 'apartment_id' => 5,
@@ -54,7 +54,7 @@ class MessageSeeder extends Seeder
                 'name' => 'prova',
                 'surname' => 'messaggio',
                 'date' => '2022-06-30 11.18.50',
-                'content' => 'messaggio di prova',
+                'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ]
         ];
 
