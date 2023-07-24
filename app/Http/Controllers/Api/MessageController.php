@@ -34,10 +34,9 @@ class MessageController extends Controller
             );
         }
 
+        $data['date'] = now()->setTimezone('Europe/Rome');;
 
         $new_message = Message::create($data);
-
-        Mail::to('no-reply@boolbnb.it')->send(new NewMessage($new_message));
 
         return response()->json(
             [
