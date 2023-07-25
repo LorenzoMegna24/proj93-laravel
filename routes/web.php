@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ApartmentController;
+use App\Http\Controllers\Admin\BraintreeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/profile/apartments', ApartmentController::class)->parameters([
         'apartments'=>'apartment:slug'
     ]);
+
+    Route::any('/payment', [BraintreeController::class, 'token'])->name('token');
+
 });
 
 require __DIR__.'/auth.php';
