@@ -49,38 +49,42 @@
             </div>
 
             {{-- tabella messaggi --}}
-            <aside class="ms-5">
+            <aside class="ms-5 mt-2">
                 
-                <table class="table caption-top ms-2">
-                    <caption class="fs-3 fw-bold">Mesaggi per l'Appartamento</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Cognome</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Contenuto</th>
-                            <th scope="col" class="col-2">data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($apartment->messages as $elem)
-                        <tr>
-                            <td>{{$elem->name}}</td>
-                            <td>{{$elem->surname}}</td>
-                            <td>{{$elem->mail}}</td>
-                            <td>{{$elem->content}}</td>
-                            <td>{{$elem->date}}</td>
-                            <td>
-                                <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger mt-3">Elimina</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <h2 class="fs-3 fw-bold">Mesaggi per l'Appartamento</h2>
+                @if($apartment->messages->count() > 0)
+                    <table class="table ms-2">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Cognome</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Contenuto</th>
+                                <th scope="col" class="col-2">data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($apartment->messages as $elem)
+                            <tr>
+                                <td>{{$elem->name}}</td>
+                                <td>{{$elem->surname}}</td>
+                                <td>{{$elem->mail}}</td>
+                                <td>{{$elem->content}}</td>
+                                <td>{{$elem->date}}</td>
+                                <td>
+                                    <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger mt-3">Elimina</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <h4>nessun messaggio per questo appartamento</h4>
+                @endif
             </aside>
 
         </div>
