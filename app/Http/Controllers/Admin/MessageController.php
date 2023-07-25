@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class MessageController extends Controller
 {
@@ -79,8 +81,10 @@ class MessageController extends Controller
      * @param  \App\Models\Admin\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy($id)
     {
-        //
+        $message = Message::findOrFail($id);
+        $message->delete();
+        return redirect()-> route('apartment.index');
     }
 }

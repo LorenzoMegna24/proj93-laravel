@@ -33,7 +33,7 @@ class MessageSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ],
             [
-                'apartment_id' => 3,
+                'apartment_id' => 1,
                 'mail' => 'message@test.it',
                 'name' => 'prova',
                 'surname' => 'messaggio',
@@ -41,7 +41,7 @@ class MessageSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolor ullam non optio? Consequatur, deleniti obcaecati eligendi ab accusantium, est autem accusamus, velit commodi modi fugiat blanditiis quaerat ipsam expedita?',
             ],
             [
-                'apartment_id' => 4,
+                'apartment_id' => 1,
                 'mail' => 'message@test.it',
                 'name' => 'prova',
                 'surname' => 'messaggio',
