@@ -181,6 +181,10 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        foreach ($apartment->messages as $message) {
+            $message->delete();
+        }
+
         $apartment->amenities()->sync([]);
 
         if ($apartment->image) {

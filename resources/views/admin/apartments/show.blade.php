@@ -71,7 +71,7 @@
                             <td>{{$elem->content}}</td>
                             <td>{{$elem->date}}</td>
                             <td>
-                                <form id="formEliminateMessage" action="{{route('message.destroy', $apartment->message)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
+                                <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger mt-3">Elimina</button>

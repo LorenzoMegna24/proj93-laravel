@@ -84,7 +84,8 @@ class MessageController extends Controller
     public function destroy($id)
     {
         $message = Message::findOrFail($id);
+        $apartment_slug = $message->apartment->slug;
         $message->delete();
-        return redirect()-> route('apartment.index');
+        return redirect()->route('apartments.show', ['apartment' => $apartment_slug]);
     }
 }
