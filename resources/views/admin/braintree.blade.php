@@ -10,7 +10,7 @@
 
             <select id="sponsor_id">
                 @foreach ($sponsors as $elem)
-                    <option value="{{ $elem['id'] }}" data-price="{{ $elem['price'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }}</option>
+                    <option value="{{ $elem['id'] }}" data-price="{{ $elem['price'] }}" data-duration="{{ $elem['duration'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }}</option>
                 @endforeach
             </select>
 
@@ -37,6 +37,7 @@ braintree.dropin.create({
         instance.requestPaymentMethod(function (err, payload) {
             if (!err) {
                 let price = sponsorInput.options[sponsorInput.selectedIndex].getAttribute('data-price');
+                let duration = sponsorInput.options[sponsorInput.selectedIndex].getAttribute('data-duration');
                 $.ajax({
                     type: "POST",
                     url: "{{ route('token') }}",
@@ -45,6 +46,7 @@ braintree.dropin.create({
                         price: price,
                         apartment_id: apartmentId,
                         sponsor_id: sponsorInput.value,
+                        duration: duration,
                         _token: "{{ csrf_token() }}"
                     },
                     success: function (data) {

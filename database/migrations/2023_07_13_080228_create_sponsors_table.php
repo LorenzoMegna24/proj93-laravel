@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', 3, 2);
-            $table->string('duration');
+            $table->integer('duration');
             $table->timestamps();
         });
     }

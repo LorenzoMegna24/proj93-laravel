@@ -44,8 +44,8 @@ class BraintreeController extends Controller
             DB::table('apartment_sponsor')->insert([
                 'apartment_id' => $apartment_id,
                 'sponsor_id' => $sponsor_id,
-                'start_date' => now(),
-                'end_date' => now()->addHours($duration),
+                'start_date' => now()->setTimezone('Europe/Rome'),
+                'end_date' => now()->setTimezone('Europe/Rome')->addHours($duration),
             ]);
             return view('dashboard');
         } else {

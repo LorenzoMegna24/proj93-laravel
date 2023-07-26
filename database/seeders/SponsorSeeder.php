@@ -19,17 +19,17 @@ class SponsorSeeder extends Seeder
             [
                 'name' => 'Silver',
                 'price' => 2.99,
-                'duration' => '24h'
+                'duration' => '24'
             ],
             [
                 'name' => 'Gold',
                 'price' => 5.99,
-                'duration' => '72h'
+                'duration' => '72'
             ],
             [
                 'name' => 'Platinum',
                 'price' => 9.99,
-                'duration' => '144h'
+                'duration' => '144'
             ],
         ];
 
