@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin\Sponsor;
+use App\Models\Admin\Apartment;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class BraintreeController extends Controller
 {
     public function token(Request $request)
     {
+        $apartment_id = $request->input('apartment_id');
+
         $sponsors = Sponsor::all();
+
+        $apartment_id = $request->input('apartment_id');
+        $sponsor_id = $request->input('sponsor_id');
+        $duration = $request->input('duration');
+
         $gateway = new \Braintree\Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
             'merchantId' => env("BRAINTREE_MERCHANT_ID"),
@@ -30,14 +41,16 @@ class BraintreeController extends Controller
                     'submitForSettlement' => True
                 ]
             ]);
+            DB::table('apartment_sponsor')->insert([
+                'apartment_id' => $apartment_id,
+                'sponsor_id' => $sponsor_id,
+                'start_date' => now(),
+                'end_date' => now()->addHours($duration),
+            ]);
             return view('dashboard');
         } else {
             $clientToken = $gateway->clientToken()->generate();
-            return view('admin.braintree', ['token' => $clientToken, 'price' => $price,'sponsors' => $sponsors]);
+            return view('admin.braintree', ['token' => $clientToken, 'price' => $price, 'sponsors' => $sponsors, 'apartment_id' => $apartment_id]);
         }
     }
-
-
 }
-
-    

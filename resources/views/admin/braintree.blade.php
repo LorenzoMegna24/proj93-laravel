@@ -8,9 +8,9 @@
         <form action="{{ route('token') }}" method="post">
             @csrf
 
-            <select id="price">
+            <select id="sponsor_id">
                 @foreach ($sponsors as $elem)
-                    <option value="{{ $elem['price'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }}</option>
+                    <option value="{{ $elem['id'] }}" data-price="{{ $elem['price'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }}</option>
                 @endforeach
             </select>
 
@@ -24,8 +24,11 @@
         </a>
     </div>
     <script>
+       
 let button = document.querySelector('#submit-button');
-let priceInput = document.getElementById('price');
+let apartmentId = "{{ $apartment_id }}";
+let sponsorInput = document.getElementById('sponsor_id');
+let price = sponsorInput.options[sponsorInput.selectedIndex].getAttribute('data-price');
 let token = '{{$token}}';
 braintree.dropin.create({
     authorization: token,
@@ -39,7 +42,9 @@ braintree.dropin.create({
                     url: "{{ route('token') }}",
                     data: {
                         nonce: payload.nonce,
-                        price: priceInput.value,
+                        price: price,
+                        apartment_id: apartmentId,
+                        sponsor_id: sponsorInput.value,
                         _token: "{{ csrf_token() }}"
                     },
                     success: function (data) {
