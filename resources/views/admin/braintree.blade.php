@@ -25,10 +25,9 @@
     </div>
     <script>
        
-let button = document.querySelector('#submit-button');
+       let button = document.querySelector('#submit-button');
 let apartmentId = "{{ $apartment_id }}";
 let sponsorInput = document.getElementById('sponsor_id');
-let price = sponsorInput.options[sponsorInput.selectedIndex].getAttribute('data-price');
 let token = '{{$token}}';
 braintree.dropin.create({
     authorization: token,
@@ -37,6 +36,7 @@ braintree.dropin.create({
     button.addEventListener('click', function () {
         instance.requestPaymentMethod(function (err, payload) {
             if (!err) {
+                let price = sponsorInput.options[sponsorInput.selectedIndex].getAttribute('data-price');
                 $.ajax({
                     type: "POST",
                     url: "{{ route('token') }}",
