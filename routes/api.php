@@ -30,3 +30,4 @@ Route::get('/messages', [MessageController::class, 'index']);
 Route::get('/views', [ViewController::class, 'index']);
 Route::get('/sponsors', [SponsorController::class, 'index']);
 Route::post('/messages', [MessageController::class, 'store']);
+Route::get('/sponsored-apartments', [ApartmentController::class, 'sponsoredApartments']);

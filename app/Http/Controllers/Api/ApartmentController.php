@@ -78,4 +78,16 @@ class ApartmentController extends Controller
             ]);
         }
     }
+
+    public function sponsoredApartments()
+    {
+        $apartments = Apartment::with('amenities')->whereHas('sponsors', function ($query) {
+            $query->where('end_date', '>', now());
+        })->get();
+
+        return response()->json([
+            'success' => true,
+            'apartments' => $apartments
+        ]);
+    }
 }
