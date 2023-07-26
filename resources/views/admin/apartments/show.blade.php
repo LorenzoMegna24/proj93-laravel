@@ -126,7 +126,10 @@
                 </div>
             </div>
         </div>
-
+        <div class="d-flex flex-column align-items-center">
+            <p>Aggiungi un boost di visibilità al tuo appartamento!</p>
+            <a class="btn btn-primary mb-3" href="{{route('token')}}">Sponsor</a>
+        </div>    
     </div>
 @endsection
 

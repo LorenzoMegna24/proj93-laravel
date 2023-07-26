@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Sponsor;
 use Illuminate\Http\Request;
 
 class BraintreeController extends Controller
 {
     public function token(Request $request)
     {
+        $sponsors = Sponsor::all();
         $gateway = new \Braintree\Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
             'merchantId' => env("BRAINTREE_MERCHANT_ID"),
@@ -31,7 +33,7 @@ class BraintreeController extends Controller
             return view('dashboard');
         } else {
             $clientToken = $gateway->clientToken()->generate();
-            return view('admin.braintree', ['token' => $clientToken, 'price' => $price]);
+            return view('admin.braintree', ['token' => $clientToken, 'price' => $price,'sponsors' => $sponsors]);
         }
     }
 

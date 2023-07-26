@@ -7,19 +7,13 @@
     <div class="container d-flex justify-content-center">
         <form action="{{ route('token') }}" method="post">
             @csrf
-            {{-- <input type="text" id="price" name="price" placeholder="Price"> --}}
-            {{-- <select id="price" class="@error('subjects') is-invalid @enderror">
-                @foreach ($sponsorhips as $sponsor)
-                            <option value="{{ $sponsor->price }}"
-                                >{{ $sponsor->name }}</option>
-                        @endforeach
-                    </select> --}}
 
             <select id="price">
-                <option value="2.99">2.99 € - Bronze </option>
-                <option value="5.99">5.99 € - Silver </option>
-                <option value="9.99">9.99 € - Gold </option>
+                @foreach ($sponsors as $elem)
+                    <option value="{{ $elem['price'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }}</option>
+                @endforeach
             </select>
+
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         </form>
     </div>

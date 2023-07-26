@@ -5,9 +5,6 @@
     <div class="d-flex justify-content-center">
         <a class="btn btn-primary my-3" href="{{route('apartments.create')}}">Inserisci nuovo appartamento</a>
     </div>
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-primary my-3" href="{{route('token')}}">p</a>
-    </div>
 
     @if (session('error'))
     <div class="d-flex justify-content-center">
