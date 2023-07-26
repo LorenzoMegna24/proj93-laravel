@@ -10,8 +10,22 @@
 
             {{-- contenitore immagini e dati stanza --}}
             <div>
-                    
+                @php
+                    use Carbon\Carbon;
+                    $now = now()->setTimezone('Europe/Rome');
+                    $sponsor = $apartment->sponsors->sortByDesc('pivot.end_date')->first();
+                    if ($sponsor) {
+                        $end_date = Carbon::parse($sponsor->pivot->end_date, 'Europe/Rome');
+                        $hours_left = $end_date->diffInHours($now);
+                    }
+                @endphp
+
                 <h1>Appartamento: {{$apartment->title}}</h1>
+                @if($sponsor)
+                    <p>Appartamento sponsorizzato</p>
+                    <p>Ore rimanenti alla scadenza della sponsorizzazione: {{ $hours_left }}</p>
+                @endif
+
 
 
                 <img style="height: 300px" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
@@ -128,9 +142,15 @@
         </div>
         <div class="d-flex flex-column align-items-center">
             <p>Aggiungi un boost di visibilità al tuo appartamento!</p>
-            <a class="btn btn-primary mb-3" href="{{ route('token', ['apartment_id' => $apartment->id]) }}">Sponsor</a>
+        <strong id="error-message" class="my-2 text-center" style="display: none; color: red;">
+            Questo appartamento è già sponsorizzato! <br> Potrai sponsorizzarlo nuovamente quando la sponsorizzazione attuale scadrà
+        </strong>
 
-        </div>    
+            <a id="sponsor-button" class="btn btn-primary mb-3" href="{{ route('token', ['apartment_id' => $apartment->id]) }}">Sponsor</a>
+
+        
+        </div> 
+        
     </div>
 @endsection
 
@@ -143,6 +163,25 @@
     </script>
 
     <script>
+    const sponsorButton = document.querySelector('#sponsor-button');
+
+    const errorMessage = document.querySelector('#error-message');
+
+
+    sponsorButton.addEventListener('click', function(event) {
+        console.log('Click sul pulsante Sponsor');
+
+        @if($apartment->sponsors->where('pivot.start_date', '<=', now()->setTimezone('Europe/Rome'))->where('pivot.end_date', '>=', now()->setTimezone('Europe/Rome'))->count() > 0)
+            console.log('L\'appartamento è già sponsorizzato');
+
+            event.preventDefault();
+
+            errorMessage.style.display = 'block';
+        @else
+            console.log('L\'appartamento non è sponsorizzato');
+        @endif
+    });
+
         // Funzione per mostrare il modal di conferma
         function showConfirmationModal(event) {
             event.preventDefault(); // Blocca l'invio del form
@@ -162,7 +201,7 @@
             formElement.submit();
         }
 
-        //funzioen di conferma eliminazione messaggio
+        //funzione di conferma eliminazione messaggio
         function showConfirmationModalMessage(event) {
             event.preventDefault(); // Blocca l'invio del form
 

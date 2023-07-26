@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Amenity;
 use App\Models\Admin\Apartment;
 use Illuminate\Http\Request;
+use App\Models\Admin\ApartmentSponsor;
 
 
 use App\Http\Controllers\Illuminate\Support\Str;
@@ -100,7 +101,16 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('admin.apartments.show',  compact('apartment'));
+        $sponsor = ApartmentSponsor::where('apartment_id', $apartment->id)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        // Passa i dati alla vista
+        return view('admin.apartments.show', [
+            'apartment' => $apartment,
+            'sponsor' => $sponsor,
+        ]);
     }
 
     /**

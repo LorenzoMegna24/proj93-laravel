@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\Apartment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             MessageSeeder::class,
             ViewSeeder::class,
             AmenityApartmentSeeder::class,
+            ApartmentSponsorSeeder::class,
 
         ]);
     }
