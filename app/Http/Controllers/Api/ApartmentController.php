@@ -18,7 +18,7 @@ class ApartmentController extends Controller
         // ]);
 
 
-        $query = Apartment::with('amenities');
+        $query = Apartment::with('amenities', 'sponsors');
 
         if ($request->has('latitude') && $request->has('longitude')) {
             $latitude = $request->latitude;
@@ -31,6 +31,9 @@ class ApartmentController extends Controller
                 ->orderBy('distance', 'ASC');
         }
 
+        if( $request->has('sponsor_id') ){
+            $query->where('sponsor_id', $request->sponsor_id );
+        }
 
         if ($request->has('amenities_id')) {
             $amenitiesId = explode(',', $request->amenities_id);
