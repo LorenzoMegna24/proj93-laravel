@@ -4,7 +4,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container w-75">
 
     <h1>Inserisci un nuovo appartamento</h1>
 
@@ -23,36 +23,36 @@
 
         @csrf
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">TITOLO *</label>
             <input class="form-control" type="text" name="title">
             <strong class="text-danger d-none" id="title-error">Inserisci un titolo</strong>
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">STANZE *</label>
             <input class="form-control" name="room" type="number" min="1" max="20">
             <strong class="text-danger d-none" id="room-error">Inserisci un numero di stanze</strong>
         </div>
         
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">BAGNI *</label>
             <input class="form-control" name="bathroom" type="number" min="1" max="10">
             <strong class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</strong>
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">POSTI LETTO *</label>
             <input class="form-control" name="bed" type="number" min="1" max="40">
             <strong class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</strong>
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">METRI QUADRI</label>
             <input class="form-control" name="sq_meters" type="number" min="20" max="1000">
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">INDIRIZZO *</label>
             <input id="address" class="form-control" name="address" type="text" placeholder="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
             <ul class="list-group box-list" id="address-list"></ul>
@@ -60,13 +60,13 @@
         </div>
 
         {{-- campo input file --}}
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">CARICA IMMAGINE *</label>
             <input class="form-control" type="file" name="image" aria-describedby="fileHelpId">
             <strong class="text-danger d-none" id="image-error">Carica una immagine del tuo appartamento</strong>
         </div>
 
-        <div class="my-2 col-md-3">
+        <div class="my-3 col-md-3">
             <label for="visibility" class="form-label">VISIBILITÀ APPARTAMENTO *</label>
             <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
                 <option value="1">Si</option>
@@ -75,10 +75,12 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="form-label" for="">SERVIZI *</label>
+            <div>
+                <label class="form-label" for="">SERVIZI *</label>
+            </div>
             @foreach ($amenities as $elem)
-            <div class="form-check">
-                <input class="form-check-input" 
+            <div class="form-check form-check-inline mb-3">
+                <input class="form-check-input border-black" 
                     type="checkbox" 
                     name="amenities[]"
                     value="{{$elem->id}}" 

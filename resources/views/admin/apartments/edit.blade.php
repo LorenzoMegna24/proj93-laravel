@@ -4,9 +4,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container w-75">
 
-    <h1>Modifica l'appartamento</h1>
+    <h1 class="mb-4">Modifica la tua proprietà</h1>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -18,42 +18,42 @@
         </div>
     @endif
 
-    <span class="fs-6 fst-italic">* campi obbligatori</span>
+    <span class="fs-6 fst-italic alert alert-danger p-2">* campi obbligatori</span>
     <form action="{{route('apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(this)">
 
         @csrf
         @method('PUT')
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">TITOLO *</label>
             <input class="form-control" type="text" name="title" value="{{old('title') ?? $apartment->title}}">
             <strong class="text-danger d-none" id="title-error">Inserisci un titolo</strong>
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">STANZE *</label>
             <input class="form-control" name="room" type="number" min="1" max="20" value="{{old('room') ?? $apartment->room}}">
             <strong class="text-danger d-none" id="room-error">Inserisci un numero di stanze</strong>
         </div>
         
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">BAGNI *</label>
             <input class="form-control" name="bathroom" type="number" min="1" max="10" value="{{old('bathroom') ?? $apartment->bathroom}}">
             <strong class="text-danger d-none" id="bathroom-error">Inserisci un numero di bagni</strong>
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">POSTI LETTO *</label>
             <input class="form-control" name="bed" type="number" min="1" max="40" value="{{old('bed') ?? $apartment->bed}}">
             <strong class="text-danger d-none" id="bed-error">Inserisci un numero di posti letto</strong>
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">METRI QUADRI</label>
             <input class="form-control" name="sq_meters" type="number" min="20" max="1000" value="{{old('sq_meters') ?? $apartment->sq_meters}}">
         </div>
 
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">MODIFICA INDIRIZZO *</label>
             <input id="address" class="form-control" name="address" type="text" value="{{old('address') ?? $apartment->address}}" placeholder="Scrivi l'indirizzo del tuo appartamento" autocomplete="off">
             <ul class="list-group box-list" id="address-list"></ul>
@@ -61,17 +61,17 @@
         </div>
 
         {{-- campo input file --}}
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">MODIFICA IMMAGINE</label>
             <input class="form-control" type="file" name="image" aria-describedby="fileHelpId" value="{{old('image') ?? $apartment->image}}">
         </div>
-        <div class="form-group my-2">
+        <div class="form-group my-3">
             <label class="form-label" for="">IMMAGINE CARICATA</label>
             <img class="d-flex" style="height: 250px" src="{{ asset('storage/' . $apartment->image) }}" alt="Immagine appartamento">
         </div>
 
 
-        <div class="my-2 col-md-3">
+        <div class="my-3 col-md-3">
             <label for="visibility" class="form-label">VISIBILITÀ APPARTAMENTO</label>
             <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
                 <option value="1" @if($apartment->visibility == 1) selected @endif>Si</option>
@@ -80,9 +80,11 @@
         </div>
 
         <div class="form-group mb-3">
-            <label class="form-label" for="">SERVIZI *</label>
+            <div>
+                <label class="form-label" for="">SERVIZI *</label>
+            </div>
             @foreach ($amenities as $elem)
-            <div class="form-check">
+            <div class="form-check form-check-inline mb-3">
                 <input class="form-check-input" 
                     type="checkbox" 
                     name="amenities[]"
