@@ -31,8 +31,8 @@ class ApartmentController extends Controller
                 ->orderBy('distance', 'ASC');
         }
 
-        if( $request->has('sponsor_id') ){
-            $query->where('sponsor_id', $request->sponsor_id );
+        if ($request->has('sponsor_id')) {
+            $query->where('sponsor_id', $request->sponsor_id);
         }
 
         if ($request->has('amenities_id')) {
