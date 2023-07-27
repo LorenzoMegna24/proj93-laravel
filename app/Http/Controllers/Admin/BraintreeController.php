@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin\Sponsor;
 use App\Models\Admin\Apartment;
-
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,11 +41,18 @@ class BraintreeController extends Controller
                     'submitForSettlement' => True
                 ]
             ]);
+            $apartment = Apartment::find($apartment_id);
+            $sponsor = $apartment->sponsors->sortByDesc('pivot.end_date')->first();
+            if ($sponsor) {
+                $end_date = Carbon::parse($sponsor->pivot->end_date, 'Europe/Rome');
+            } else {
+                $end_date = now()->setTimezone('Europe/Rome');
+            }
             DB::table('apartment_sponsor')->insert([
                 'apartment_id' => $apartment_id,
                 'sponsor_id' => $sponsor_id,
-                'start_date' => now()->setTimezone('Europe/Rome'),
-                'end_date' => now()->setTimezone('Europe/Rome')->addHours($duration),
+                'start_date' => $end_date,
+                'end_date' => (clone $end_date)->addHours($duration),
             ]);
             return view('dashboard');
         } else {

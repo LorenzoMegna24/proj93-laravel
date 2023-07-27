@@ -168,19 +168,19 @@
     const errorMessage = document.querySelector('#error-message');
 
 
-    sponsorButton.addEventListener('click', function(event) {
-        console.log('Click sul pulsante Sponsor');
+    // sponsorButton.addEventListener('click', function(event) {
+    //     console.log('Click sul pulsante Sponsor');
 
-        @if($apartment->sponsors->where('pivot.start_date', '<=', now()->setTimezone('Europe/Rome'))->where('pivot.end_date', '>=', now()->setTimezone('Europe/Rome'))->count() > 0)
-            console.log('L\'appartamento è già sponsorizzato');
+    //     @if($apartment->sponsors->where('pivot.start_date', '<=', now()->setTimezone('Europe/Rome'))->where('pivot.end_date', '>=', now()->setTimezone('Europe/Rome'))->count() > 0)
+    //         console.log('L\'appartamento è già sponsorizzato');
 
-            event.preventDefault();
+    //         event.preventDefault();
 
-            errorMessage.style.display = 'block';
-        @else
-            console.log('L\'appartamento non è sponsorizzato');
-        @endif
-    });
+    //         errorMessage.style.display = 'block';
+    //     @else
+    //         console.log('L\'appartamento non è sponsorizzato');
+    //     @endif
+    // });
 
         // Funzione per mostrare il modal di conferma
         function showConfirmationModal(event) {
