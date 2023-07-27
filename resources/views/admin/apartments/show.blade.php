@@ -6,10 +6,10 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex">
+        <div class="row">
 
             {{-- contenitore immagini e dati stanza --}}
-            <div>
+            <div class="col-lg-4">
                 @php
                     use Carbon\Carbon;
                     $now = now()->setTimezone('Europe/Rome');
@@ -20,136 +20,141 @@
                     }
                 @endphp
 
-                <h1>Appartamento: {{$apartment->title}}</h1>
-                @if($sponsor)
-                    <p>Appartamento sponsorizzato</p>
-                    <p>Ore rimanenti alla scadenza della sponsorizzazione: {{ $hours_left }}</p>
-                @endif
+                <h1>{{$apartment->title}}</h1>
+                <div class="alert alert-success" role="alert">
+                    @if($sponsor)
+                        <h3>Appartamento sponsorizzato</h3>
+                        <p><i>Ore rimanenti alla scadenza della sponsorizzazione:</i> {{ $hours_left }}h</p>
+                    @endif
+                </div>
 
 
 
-                <img style="height: 300px" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
-                
-                
-                <p>Stanze: {{$apartment->room}}</p>
-                <p>Bagni: {{$apartment->bathroom}}</p>
-                <p>Letti:{{$apartment->bed}}</p>
-                <p>Metri quadrati: {{$apartment->sq_meters ? $apartment->sq_meters : '-'}}</p>
-                <p>Indirizzo: {{$apartment->address}}</p>
-                <p>Visibilità: 
-                    @if($apartment->visibility) 
-                    si
-                    @else
-                    no
-                    @endif  
-                </p>
+                <img style="width:100%;" class="rounded-3 shadow-lg" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
+                <div class="mt-3">
+                    <span class="me-3"><i>{{$apartment->address}}</i></span>
+                </div>
 
-                <p>Servizi:</p>
+                <div class="d-flex justify-content-between mt-3">
+                    <span class="me-3"><strong>Stanze:</strong> {{$apartment->room}}</span>
+                    <span class="me-3"><strong>Bagni:</strong> {{$apartment->bathroom}}</span>
+                    <span class="me-3"><strong>Letti:</strong>{{$apartment->bed}}</span>
+                    <span class="me-3"><strong>Metri quadrati:</strong> {{$apartment->sq_meters ? $apartment->sq_meters : '-'}}</span>
+                </div>
+                <div class="my-3"s>
+                    <span>
+                        <strong>Visibilità: </strong>
+                        @if($apartment->visibility) 
+                        si
+                        @else
+                        no
+                        @endif  
+                    </span>
+                </div>
+
+                <span class="me-2 fw-bolder">Servizi:</span>
                 @foreach($apartment->amenities as $elem)
-                <img class="me-3" src="{{asset('storage/' . $elem->image)}}" alt="{{$elem->name}}" style="height: 20px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$elem->name}}">
+                <img class="me-3" src="{{asset('storage/' . $elem->image)}}" alt="{{$elem->name}}" style="height: 25px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$elem->name}}">
                 @endforeach
             
 
-                <div class="mt-3">
-                <a class="btn btn-primary" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
+                <div class="mt-3 d-flex align-items-center justify-content-center mt-4">
+                    <a class="btn btn-primary me-5" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
+                    <form id="formEliminate" action="{{route('apartments.destroy', $apartment)}}" method="POST" onsubmit="return showConfirmationModal(event)">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
                 </div>
 
-                <form id="formEliminate" action="{{route('apartments.destroy', $apartment)}}" method="POST" onsubmit="return showConfirmationModal(event)">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger mt-3">Elimina</button>
-                </form>
-                
             </div>
+            <div class="col-lg-8">
 
-            {{-- tabella messaggi --}}
-            <aside class="ms-5 mt-2">
-                
-                <h2 class="fs-3 fw-bold">Mesaggi per l'Appartamento</h2>
-                @if($apartment->messages->count() > 0)
-                    <table class="table ms-2">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Cognome</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Contenuto</th>
-                                <th scope="col" class="col-2">data</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($apartment->messages as $elem)
-                            <tr>
-                                <td>{{$elem->name}}</td>
-                                <td>{{$elem->surname}}</td>
-                                <td>{{$elem->mail}}</td>
-                                <td>{{$elem->content}}</td>
-                                <td>{{$elem->date}}</td>
-                                <td>
-                                    <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger mt-3">Elimina</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <h4>nessun messaggio per questo appartamento</h4>
-                @endif
-            </aside>
-
-        </div>
-
-        {{-- modale di conferma eliminazione --}}
-        <div class="modal" id="confirmationModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Conferma Eliminazione</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Sei sicuro di voler eliminare questo appartamento?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                        <button type="button" class="btn btn-danger" onclick="deleteApartment()">Elimina</button>
-                    </div>
-                </div>
+                {{-- tabella messaggi --}}
+                <aside class="ms-5 mt-2">
+                    
+                    <h2 class="fs-3">Mesaggi per l'Appartamento</h2>
+                    @if($apartment->messages->count() > 0)
+                        <table class="table ms-2 table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Cognome</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Contenuto</th>
+                                    <th scope="col" class="col-2">data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($apartment->messages as $elem)
+                                <tr>
+                                    <td>{{$elem->name}}</td>
+                                    <td>{{$elem->surname}}</td>
+                                    <td>{{$elem->mail}}</td>
+                                    <td>{{$elem->content}}</td>
+                                    <td>{{$elem->date}}</td>
+                                    <td>
+                                        <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger mt-3">Elimina</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <h4>nessun messaggio per questo appartamento</h4>
+                    @endif
+                </aside>
+    
             </div>
-        </div>
-
-        {{-- modale di conferma eliminazione per i messaggi --}}
-        <div class="modal" id="confirmationModalMessage" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Conferma eliminazione del messaggio</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Sei sicuro di voler eliminare questo messaggio?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                        <button type="button" class="btn btn-danger" onclick="deleteMessage()">Elimina</button>
+    
+            {{-- modale di conferma eliminazione --}}
+            <div class="modal" id="confirmationModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Conferma Eliminazione</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Sei sicuro di voler eliminare questo appartamento?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteApartment()">Elimina</button>
+                        </div>
                     </div>
                 </div>
             </div>
+    
+            {{-- modale di conferma eliminazione per i messaggi --}}
+            <div class="modal" id="confirmationModalMessage" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Conferma eliminazione del messaggio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Sei sicuro di voler eliminare questo messaggio?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteMessage()">Elimina</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d-flex flex-column align-items-center">
-            <p>Aggiungi un boost di visibilità al tuo appartamento!</p>
-        <strong id="error-message" class="my-2 text-center" style="display: none; color: red;">
-            Questo appartamento è già sponsorizzato! <br> Potrai sponsorizzarlo nuovamente quando la sponsorizzazione attuale scadrà
-        </strong>
-
-            <a id="sponsor-button" class="btn btn-primary mb-3" href="{{ route('token', ['apartment_id' => $apartment->id]) }}">Sponsor</a>
-
-        
-        </div> 
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center alert alert-primary mt-5 w-75" role="alert">
+                <h3 class="mt-3">Aggiungi un boost di visibilità al tuo appartamento!</h3>    
+                <a id="sponsor-button" class="btn btn-primary my-3" href="{{ route('token', ['apartment_id' => $apartment->id]) }}">Boost</a>    
+            </div> 
+        </div>
         
     </div>
 @endsection
