@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-center my-5">I Tuoi Appartamenti</h1>
+
+<div class="container-index">
+    <h1 class="text-center py-4">I Tuoi Appartamenti</h1>
     <div class="d-flex justify-content-center">
-        <a class="btn btn-primary my-3" href="{{route('apartments.create')}}">Inserisci nuovo appartamento</a>
+        <a class="btn mt-2 button-create shadow" href="{{route('apartments.create')}}">Inserisci nuovo appartamento</a>
     </div>
 
     @if (session('error'))
@@ -14,19 +16,20 @@
     </div>
     @endif
 
-    <div class="container">
+    <div class="container py-4">
         <div class="row">
             @foreach ($apartments as $elem)
-                <div class="col-lg-4">
-                    <div class="card">
-                        <img class="card-img-top" src="{{asset('storage/' . $elem->image)}}" alt="Title">
+                <div class="col-lg-4 col-md-6 col-sm-12 my-3">
+                    <div class="card card-index shadow border-0">
+                        <img class="card-img-top img-card-index" src="{{asset('storage/' . $elem->image)}}" alt="Title">
                         <div class="card-body">
                             <a  class="card-title fs-4" href="{{route('apartments.show', $elem)}}">{{$elem->title}}</a>
-                            <p class="card-text">{{$elem->address}}</p>
+                            <p class="card-text mt-1 mb-0">{{$elem->address}}</p>
                         </div>              
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
+</div>
 @endsection

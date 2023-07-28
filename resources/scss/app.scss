@@ -1,1 +1,29 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+
+.container-index {
+    background-color: #E8F3FE;
+
+    .button-create {
+        background-color: #2382F7;
+        color: white;
+    }
+
+    .card-index {
+        height: 22rem;
+
+        .img-card-index {
+            height: 15rem;
+        }
+
+        a {
+            color: #196BDE;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        p {
+            font-style: oblique;
+        }
+    }
+}
