@@ -48,7 +48,7 @@ class ApartmentSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'title' => 'Appartamento Style White',
+                'title' => 'Appartamento White Style',
                 'room' => 3,
                 'bathroom' => 2,
                 'bed' => 6,
@@ -74,7 +74,7 @@ class ApartmentSeeder extends Seeder
             ],
             [
                 'user_id' => 2,
-                'title' => 'Luxary Villa',
+                'title' => 'Luxury Villa',
                 'room' => 6,
                 'bathroom' => 5,
                 'bed' => 12,

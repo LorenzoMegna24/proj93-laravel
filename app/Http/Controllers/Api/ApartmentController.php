@@ -10,26 +10,22 @@ class ApartmentController extends Controller
 {
     public function index(Request $request)
     {
-        // $apartments = Apartment::with('amenities', 'messages', 'views', 'sponsors')->paginate(9);
+        $query = Apartment::with('amenities', 'sponsors')
+            ->selectRaw("apartments.*, (CASE WHEN apartment_sponsor.end_date > NOW() THEN 0 ELSE 1 END) AS sponsored_order")
+            ->leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+            ->orderBy('sponsored_order', 'ASC');
 
-        // return response()->json([
-        // 	'success' => true,
-        // 	'apartments' => $apartments
-        // ]);
-
-
-        $query = Apartment::with('amenities', 'sponsors');
 
         if ($request->has('latitude') && $request->has('longitude')) {
             $latitude = $request->latitude;
             $longitude = $request->longitude;
             $radius = $request->input('radius', 20); // Raggio di ricerca in km
 
-            // Utilizza la formula di Haversine per calcolare la distanza tra due punti sulla superficie terrestre
-            $query->selectRaw("*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) AS distance", [$latitude, $longitude, $latitude])
+            $query->selectRaw("( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) AS distance", [$latitude, $longitude, $latitude])
                 ->havingRaw("distance < ?", [$radius])
                 ->orderBy('distance', 'ASC');
         }
+
 
         if ($request->has('sponsor_id')) {
             $query->where('sponsor_id', $request->sponsor_id);
