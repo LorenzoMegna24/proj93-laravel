@@ -20,7 +20,7 @@
                     }
                 @endphp
 
-                <h1>{{$apartment->title}}</h1>
+                <h1 class="py-3">{{$apartment->title}}</h1>
                 <div class="alert alert-success" role="alert">
                     @if($sponsor)
                         <h3>Appartamento sponsorizzato</h3>
@@ -30,18 +30,21 @@
 
 
 
-                <img style="width:100%;" class="rounded-3 shadow-lg" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
+                <img style="width:100%;" class="rounded-3 shadow" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
                 <div class="mt-3">
                     <span class="me-3"><i>{{$apartment->address}}</i></span>
                 </div>
 
-                <div class="d-flex justify-content-between mt-3">
-                    <span class="me-3"><strong>Stanze:</strong> {{$apartment->room}}</span>
-                    <span class="me-3"><strong>Bagni:</strong> {{$apartment->bathroom}}</span>
-                    <span class="me-3"><strong>Letti:</strong>{{$apartment->bed}}</span>
-                    <span class="me-3"><strong>Metri quadrati:</strong> {{$apartment->sq_meters ? $apartment->sq_meters : '-'}}</span>
+                <div class="container-fluid">
+                    <div class="row mt-3">
+                        <div class="col-6 mb-2"><strong>Stanze:</strong> {{$apartment->room}}</div>
+                        <div class="col-6 mb-2"><strong>Bagni:</strong> {{$apartment->bathroom}}</div>
+                        <div class="col-6 mb-2"><strong>Letti:</strong>{{$apartment->bed}}</div>
+                        <div class="col-6 mb-2"><strong>Metri quadrati:</strong> {{$apartment->sq_meters ? $apartment->sq_meters : '-'}}</div>
+                    </div>
                 </div>
-                <div class="my-3"s>
+
+                <div class="my-3 ms-2"s>
                     <span>
                         <strong>Visibilità: </strong>
                         @if($apartment->visibility) 
@@ -52,14 +55,20 @@
                     </span>
                 </div>
 
-                <span class="me-2 fw-bolder">Servizi:</span>
-                @foreach($apartment->amenities as $elem)
-                <img class="me-3" src="{{asset('storage/' . $elem->image)}}" alt="{{$elem->name}}" style="height: 25px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$elem->name}}">
-                @endforeach
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="me-2 my-2 fw-bolder">Servizi:</div>
+                        @foreach($apartment->amenities as $elem)
+                        <div class="col-4 my-1">
+                            <img class="me-3" src="{{asset('storage/' . $elem->image)}}" alt="{{$elem->name}}" style="height: 25px" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$elem->name}}">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             
 
-                <div class="mt-3 d-flex align-items-center justify-content-center mt-4">
-                    <a class="btn btn-primary me-5" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
+                <div class="d-flex mt-5">
+                    <a class="btn btn-primary me-4" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
                     <form id="formEliminate" action="{{route('apartments.destroy', $apartment)}}" method="POST" onsubmit="return showConfirmationModal(event)">
                         @csrf
                         @method('DELETE')
@@ -73,9 +82,11 @@
                 {{-- tabella messaggi --}}
                 <aside class="ms-5 mt-2">
                     
-                    <h2 class="fs-3">Mesaggi per l'Appartamento</h2>
+                    <h2 class="fs-3 py-3 ps-2">Messaggi</h2>
                     @if($apartment->messages->count() > 0)
-                        <table class="table ms-2 table-striped">
+
+                    <div class="table-responsive">
+                        <table class="table ms-2 table-striped table-sm">
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
@@ -104,6 +115,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
                     @else
                         <h4>nessun messaggio per questo appartamento</h4>
                     @endif
