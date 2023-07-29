@@ -9,7 +9,7 @@
         <div class="row">
 
             {{-- contenitore immagini e dati stanza --}}
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 @php
                     use Carbon\Carbon;
                     $now = now()->setTimezone('Europe/Rome');
@@ -21,13 +21,13 @@
                 @endphp
 
                 <h1 class="py-3">{{$apartment->title}}</h1>
-                <div class="alert alert-success" role="alert">
-                    @if($sponsor)
+                @if($sponsor)
+                    <div class="alert alert-success" role="alert">
                         <h3>Appartamento sponsorizzato</h3>
                         <p><i>Ore rimanenti alla scadenza della sponsorizzazione:</i> {{ $hours_left }}h</p>
-                    @endif
-                </div>
-
+                    </div>
+                @endif
+                    
 
 
                 <img style="width:100%;" class="rounded-3 shadow" src="{{asset('storage/' . $apartment->image)}}" alt="immagine">
@@ -77,15 +77,15 @@
                 </div>
 
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-7">
 
                 {{-- tabella messaggi --}}
-                <aside class="ms-5 mt-2">
+                <aside class="mt-2">
                     
                     <h2 class="fs-3 py-3 ps-2">Messaggi</h2>
                     @if($apartment->messages->count() > 0)
 
-                    <div class="table-responsive">
+                    <div class="">
                         <table class="table ms-2 table-striped table-sm">
                             <thead>
                                 <tr>
