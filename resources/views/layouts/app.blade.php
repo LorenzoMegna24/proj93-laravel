@@ -67,9 +67,9 @@
                         @endif
                         @else
 
-                        <li>
+                        {{-- <li>
                             <a class="nav-link" href="{{route('apartments.index')}}">Appartamenti</a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item dropstart">
                             <button id="navbarDropdown" class="btn nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -78,7 +78,8 @@
                             </button>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('dashboard') }}">{{__('Dashboard')}}</a>
+                                {{-- <a class="dropdown-item" href="{{ url('dashboard') }}">{{__('Dashboard')}}</a> --}}
+                                <a class="dropdown-item" href="{{ url('profile/apartments') }}">Appartamenti</a>
                                 <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profilo')}}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
