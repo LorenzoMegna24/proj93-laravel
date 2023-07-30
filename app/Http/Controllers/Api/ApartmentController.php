@@ -11,9 +11,14 @@ class ApartmentController extends Controller
     public function index(Request $request)
     {
         $query = Apartment::with('amenities', 'sponsors')
-            ->selectRaw("apartments.*, (CASE WHEN apartment_sponsor.end_date > NOW() THEN 0 ELSE 1 END) AS sponsored_order")
+            ->selectRaw("apartments.*, MAX(apartment_sponsor.end_date), (CASE WHEN MAX(apartment_sponsor.end_date) > NOW() THEN 0 ELSE 1 END) AS sponsored_order")
             ->leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
-            ->distinct()
+            ->where(function ($query) {
+                $query->where('apartment_sponsor.end_date', '>', now())
+                    ->orWhereNull('apartment_sponsor.end_date')
+                    ->orWhere('apartment_sponsor.end_date', '<', now());
+            })
+            ->groupBy('apartments.id')
             ->orderBy('sponsored_order', 'ASC');
 
 
@@ -26,7 +31,6 @@ class ApartmentController extends Controller
                 ->havingRaw("distance < ?", [$radius])
                 ->orderBy('distance', 'ASC');
         }
-
 
         if ($request->has('sponsor_id')) {
             $query->where('sponsor_id', $request->sponsor_id);
