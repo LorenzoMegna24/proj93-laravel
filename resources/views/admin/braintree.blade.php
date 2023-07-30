@@ -3,14 +3,15 @@
 
 @section('content')
 
-<div class="py-12 boh">
+ <div class="py-12 boh pagamento d-flex flex-column justify-content-center align-items-center">
+    <h2 class="text-white pb-2" style="font-size: 60px">Rendi più visibile la tua proprietà</h2>
     <div class="container d-flex justify-content-center">
         <form action="{{ route('token') }}" method="post">
             @csrf
 
-            <select id="sponsor_id">
+            <select class="form-select" id="sponsor_id">
                 @foreach ($sponsors as $elem)
-                    <option value="{{ $elem['id'] }}" data-price="{{ $elem['price'] }}" data-duration="{{ $elem['duration'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }}</option>
+                    <option value="{{ $elem['id'] }}" data-price="{{ $elem['price'] }}" data-duration="{{ $elem['duration'] }}">{{ $elem['price'] }} € - {{ $elem['name'] }} {{ $elem['duration'] }}h </option>
                 @endforeach
             </select>
 
@@ -19,16 +20,17 @@
     </div>
     <div id="dropin-container" style="display: flex;justify-content: center;align-items: center;"></div>
     <div style="display: flex;justify-content: center;align-items: center; color: white">
-        <a id="submit-button" class="btn btn-sm btn-success" data-braintree-nonce>
-            <span class="ml-3">Submit payment</span>
+        <a type="button" href="{{ route('apartment.show', ['apartment' => $apartment_id]) }}" class="btn btn-danger me-3">indietro</a>
+        <a id="submit-button" class="btn btn-success" data-braintree-nonce>
+            Submit payment
         </a>
     </div>
     <script>
        
-       let button = document.querySelector('#submit-button');
-let apartmentId = "{{ $apartment_id }}";
-let sponsorInput = document.getElementById('sponsor_id');
-let token = '{{$token}}';
+        let button = document.querySelector('#submit-button');
+        let apartmentId = "{{ $apartment_id }}";
+        let sponsorInput = document.getElementById('sponsor_id');
+        let token = '{{$token}}';
 braintree.dropin.create({
     authorization: token,
     container: '#dropin-container'

@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('message.destroy');
     Route::delete('/message/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
+    Route::get('/apartments/{apartment}', [ApartmentController::class, 'show'])->name('apartment.show');
 
     Route::resource('/profile/apartments', ApartmentController::class)->parameters([
         'apartments' => 'apartment:slug'
