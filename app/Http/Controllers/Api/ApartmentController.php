@@ -13,6 +13,7 @@ class ApartmentController extends Controller
         $query = Apartment::with('amenities', 'sponsors')
             ->selectRaw("apartments.*, (CASE WHEN apartment_sponsor.end_date > NOW() THEN 0 ELSE 1 END) AS sponsored_order")
             ->leftJoin('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+            ->distinct()
             ->orderBy('sponsored_order', 'ASC');
 
 
