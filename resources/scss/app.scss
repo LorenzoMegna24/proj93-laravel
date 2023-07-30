@@ -27,3 +27,45 @@
         }
     }
 }
+
+//stile per il footer
+.footer-content {
+    background-image: linear-gradient(to bottom, #e8f3fe, #f0f5ff, #f6f8ff, #fbfbff, #ffffff);
+    color: rgba($color: #000000, $alpha: 0.8);
+    padding-top: 1.5rem;
+
+    .contact-info {
+
+        p {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .site-links {
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                margin-bottom: 0.2rem;
+
+                a {
+                    text-decoration: none;
+                    color: rgba($color: #000000, $alpha: 0.8);
+
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .footer-signs {
+        p {
+            font-size: 0.8rem;
+        }
+    }
+}

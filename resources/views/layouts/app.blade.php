@@ -100,6 +100,65 @@
         <main class="">
             @yield('content')
         </main>
+
+        <footer>
+            <div class="footer-content container-fluid px-5 py-3 shadow">
+    
+                <div class="row">
+    
+                    <div class="contact-info d-flex justify-content-center col-lg-4 col-md-6 col-sm-12 mb-3">
+                        <div>
+                            <h4 class="pb-2">Contattaci</h4>
+                            <p><strong>Email:</strong> boolbnb@gmail.com</p>
+                            <p><strong>Telefono:</strong> +39 123 456789</p>
+                            <p><strong>Orari di contatto:</strong> Lun-Ven 9:00 - 18:00</p>
+                        </div>
+                    </div>
+    
+                    <div class="social-links col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                        <div>
+                            <h4 class="mb-3">Seguici</h4>
+                            <span class="me-2">
+                                <i class="fa-brands fa-facebook fa-xl"></i>
+                            </span>
+                            <span class="me-2">
+                                <i class="fa-brands fa-instagram fa-xl"></i>
+                            </span>
+                            <span>
+                                <i class="fa-brands fa-twitter fa-xl"></i>
+                            </span>
+                        </div>
+                    </div>
+    
+                    <div class="site-links col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                        <div>
+                            <h4 class="mb-3">Naviga</h4>
+                            <ul>
+                                <li>
+                                    <a href="http://localhost:5174/" class="nav-link">Home</a>                                </li>
+                                <li>
+                                    <a href="http://localhost:5174/apartment" class="nav-link">Ricerca avanzata</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:8000/login">Accedi</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:8000/register">Registrati</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="footer-signs text-center">
+                    <p class="mb-0 mt-2">
+                        <i> Made with &hearts; by Francesca Di Domenico, Alessandro Casentini, Lorenzo Megna, Mattia Di
+                            Cunto</i>
+                    </p>
+                </div>
+            </div>
+        </footer>
     </div>
     @yield('scripts')
 </body>
