@@ -33,6 +33,9 @@
     background-image: linear-gradient(to bottom, #e8f3fe, #f0f5ff, #f6f8ff, #fbfbff, #ffffff);
     color: rgba($color: #000000, $alpha: 0.8);
     padding-top: 1.5rem;
+    position: fixed;
+    bottom: 0;
+
 
     .contact-info {
 
