@@ -36,7 +36,7 @@
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('http://localhost:5174/') }}">
                     <div class="logo_laravel">
-                        <img src="{{ Vite::asset('public/logo.png') }}" style="width: 70px;" alt="logo">
+                        <img src="{{ Vite::asset('public/logo.png') }}" style="width: 3.3rem;" alt="logo">
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
