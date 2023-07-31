@@ -20,8 +20,8 @@
     </div>
     <div id="dropin-container" style="display: flex;justify-content: center;align-items: center;"></div>
     <div style="display: flex;justify-content: center;align-items: center; color: white">
-        <a type="button" href="{{ route('apartment.show', ['apartment' => $apartment_id]) }}" class="btn btn-danger me-3">indietro</a>
-        <a id="submit-button" class="btn btn-success" data-braintree-nonce>
+        <a type="button" href="{{ route('apartment.show', ['apartment' => $apartment_id]) }}" class="btn btn-danger  mt-3 me-3">indietro</a>
+        <a id="submit-button" class="btn btn-success mt-3" data-braintree-nonce>
             Submit payment
         </a>
     </div>
