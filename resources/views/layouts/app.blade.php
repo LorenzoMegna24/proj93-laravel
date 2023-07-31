@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="icon" type="favicon" href="{{ Vite::asset('public/logo.png') }}" />
+    <link rel="icon" type="favicon" href="{{ Vite::asset('public/logo2.png') }}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -36,7 +36,7 @@
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('http://localhost:5174/') }}">
                     <div class="logo_laravel">
-                        <img src="{{ Vite::asset('public/logo.png') }}" style="width: 3.3rem;" alt="logo">
+                        <img src="{{ Vite::asset('public/logo2.png') }}" style="width: 4rem;" alt="logo">
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
