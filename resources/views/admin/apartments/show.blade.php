@@ -175,7 +175,7 @@
 
             <div class="row">
 
-                <div class="contact-info d-flex justify-content-center col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="contact-info d-flex justify-content-center col-lg-4 col-sm-4 col-12 mb-3">
                     <div>
                         <h4 class="pb-2">Contattaci</h4>
                         <p><strong>Email:</strong> boolbnb@gmail.com</p>
@@ -184,7 +184,7 @@
                     </div>
                 </div>
 
-                <div class="social-links col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="social-links col-lg-4 col-sm-4 col-12 d-flex justify-content-center">
                     <div>
                         <h4 class="mb-3">Seguici</h4>
                         <span class="me-2">
@@ -199,7 +199,7 @@
                     </div>
                 </div>
 
-                <div class="site-links col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="site-links col-lg-4 col-sm-4 col-12 d-flex justify-content-center">
                     <div>
                         <h4 class="mb-3">Naviga</h4>
                         <ul>

@@ -73,6 +73,26 @@
     }
 }
 
+@media screen and (max-width: 576px) {
+    .footer-content {
+        .contact-info {
+            justify-content: start !important;
+            margin: 0.3rem 0 1.2rem 0;
+        }
+
+        .social-links {
+            justify-content: start !important;
+            margin: 1.2rem 0;
+        }
+
+        .site-links {
+            justify-content: start !important;
+            margin: 1.2rem 0;
+        }
+    }
+}
+
+//pagina pagamento
 .pagamento {
     background-image: url(../../public/blob-haikei.svg);
     background-repeat: no-repeat;
