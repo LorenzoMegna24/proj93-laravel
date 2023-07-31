@@ -23,8 +23,8 @@
                 <h1 class="py-3">{{$apartment->title}}</h1>
                 @if($sponsor)
                     <div class="alert alert-success" role="alert">
-                        <h3>Appartamento sponsorizzato</h3>
-                        <p><i>Ore rimanenti alla scadenza della sponsorizzazione:</i> {{ $hours_left }}h</p>
+                        <h3>Sponsorizzione attiva</h3>
+                        <p><i>Il boost sarà attivo ancora per</i> {{ $hours_left }}h</p>
                     </div>
                 @endif
                     
@@ -118,7 +118,7 @@
                         </table>
                     </div>
                     @else
-                        <h4>nessun messaggio per questo appartamento</h4>
+                        <h4>nessun messaggio per questo alloggio</h4>
                     @endif
                 </aside>
     
@@ -133,7 +133,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Sei sicuro di voler eliminare questo appartamento?
+                            Sei sicuro di volerlo eliminare?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
@@ -164,7 +164,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="d-flex flex-column align-items-center alert alert-primary mt-5 w-75" role="alert">
-                <h3 class="mt-3">Aggiungi un boost di visibilità al tuo appartamento!</h3>    
+                <h3 class="mt-3">Aggiungi un boost di visibilità al tuo b&b!</h3>    
                 <a id="sponsor-button" class="btn btn-primary my-3" href="{{ route('token', ['apartment_id' => $apartment->id]) }}">Boost</a>    
             </div> 
         </div>

@@ -72,7 +72,7 @@
 
 
         <div class="my-3 col-md-3">
-            <label for="visibility" class="form-label">VISIBILITÀ APPARTAMENTO</label>
+            <label for="visibility" class="form-label">VISIBILITÀ</label>
             <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
                 <option value="1" @if($apartment->visibility == 1) selected @endif>Si</option>
                 <option value="0" @if($apartment->visibility == 0) selected @endif>No</option>
@@ -98,7 +98,7 @@
             <strong class="text-danger d-none" id="amenities-error">Seleziona almeno un servizio</strong>
         </div>
 
-        <button type="submit" class="btn btn-success my-3">MODIFICA APPARTAMENTO</button>
+        <button type="submit" class="btn btn-success my-3">MODIFICA</button>
     </form>   
 </div>
 <footer>

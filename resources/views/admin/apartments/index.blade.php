@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container-index">
-    <h1 class="text-center py-4">I Tuoi Appartamenti</h1>
+    <h1 class="text-center py-4">I Tuoi Alloggi</h1>
     <div class="d-flex justify-content-center">
-        <a class="btn mt-2 button-create shadow" href="{{route('apartments.create')}}">Inserisci nuovo appartamento</a>
+        <a class="btn mt-2 button-create shadow" href="{{route('apartments.create')}}">Inserisci un nuovo b&b</a>
     </div>
 
     @if (session('error'))

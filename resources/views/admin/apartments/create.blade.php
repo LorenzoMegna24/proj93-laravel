@@ -6,7 +6,7 @@
 @section('content')
 <div class="container w-75">
 
-    <h1>Inserisci un nuovo appartamento</h1>
+    <h1>Inserisci un nuovo b&b</h1>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="my-3 col-md-3">
-            <label for="visibility" class="form-label">VISIBILITÀ APPARTAMENTO *</label>
+            <label for="visibility" class="form-label">VISIBILITÀ *</label>
             <select class="form-select" name="visibility" aria-label="Default select example" style="width: 100px" required>
                 <option value="1">Si</option>
                 <option value="0">No</option>
@@ -92,7 +92,7 @@
             <strong class="text-danger d-none" id="amenities-error">Seleziona almeno un servizio</strong>
         </div>
 
-        <button type="submit" class="btn btn-success my-3">AGGIUNGI APPARTAMENTO</button>
+        <button type="submit" class="btn btn-success my-3">AGGIUNGI</button>
     </form>   
 </div>
 <footer>
