@@ -69,7 +69,8 @@
             
 
                 <div class="d-flex mt-5">
-                    <a class="btn btn-primary me-4" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
+                    <a class="btn btn-success" href="{{ url('profile/apartments') }}"><i class="fa-solid fa-arrow-left"></i> Le tue proprietà</a>
+                    <a class="btn btn-primary mx-4" href="{{route('apartments.edit', $apartment)}}">Modifica</a>
                     <form id="formEliminate" action="{{route('apartments.destroy', $apartment)}}" method="POST" onsubmit="return showConfirmationModal(event)">
                         @csrf
                         @method('DELETE')

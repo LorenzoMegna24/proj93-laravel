@@ -93,6 +93,7 @@
         </div>
 
         <button type="submit" class="btn btn-success my-3">AGGIUNGI</button>
+        <a class="btn btn-danger" href="{{ url('profile/apartments') }}">ANNULLA</a>
     </form>   
 </div>
 <footer>

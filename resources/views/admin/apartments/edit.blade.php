@@ -99,6 +99,7 @@
         </div>
 
         <button type="submit" class="btn btn-success my-3">MODIFICA</button>
+        <a type="button" href="{{ route('apartment.show', ['apartment' => $apartment->id]) }}" class="btn btn-danger ms-3">ANNULLA</a>
     </form>   
 </div>
 <footer>
