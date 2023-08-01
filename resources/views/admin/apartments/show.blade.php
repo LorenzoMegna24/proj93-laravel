@@ -23,7 +23,7 @@
                 <h1 class="py-3">{{$apartment->title}}</h1>
                 @if($sponsor)
                     <div class="alert alert-success" role="alert">
-                        <h3>Sponsorizzione attiva</h3>
+                        <h3>Sponsorizzazione attiva</h3>
                         <p><i>Il boost sarà attivo ancora per</i> {{ $hours_left }}h</p>
                     </div>
                 @endif
@@ -91,21 +91,21 @@
                         <table class="table ms-2 table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Cognome</th>
+                                    <th scope="col" class="d-none d-md-table-cell">Nome</th>
+                                    <th scope="col" class="d-none d-md-table-cell">Cognome</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Contenuto</th>
-                                    <th scope="col" class="col-2">data</th>
+                                    <th scope="col" class="col-2 d-none d-sm-table-cell">data</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($apartment->messages as $elem)
                                 <tr>
-                                    <td>{{$elem->name}}</td>
-                                    <td>{{$elem->surname}}</td>
+                                    <td  class="d-none d-md-table-cell">{{$elem->name}}</td>
+                                    <td  class="d-none d-md-table-cell">{{$elem->surname}}</td>
                                     <td>{{$elem->mail}}</td>
                                     <td>{{$elem->content}}</td>
-                                    <td>{{$elem->date}}</td>
+                                    <td class=" d-none d-sm-table-cell">{{$elem->date}}</td>
                                     <td>
                                         <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
                                             @csrf
