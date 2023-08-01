@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-index">
-    <h1 class="text-center py-4">I Tuoi Alloggi</h1>
+    <h1 class="text-center py-4">Le Tue Proprietà</h1>
     <div class="d-flex justify-content-center">
         <a class="btn mt-2 button-create shadow" href="{{route('apartments.create')}}">Inserisci un nuovo b&b</a>
     </div>
