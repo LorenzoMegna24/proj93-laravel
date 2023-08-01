@@ -4,7 +4,7 @@
 @section('content')
 
  <div class="py-12 boh pagamento d-flex flex-column justify-content-center align-items-center">
-    <h2 class="text-white pb-2" style="font-size: 60px">Rendi più visibile la tua proprietà</h2>
+    <h2 class="text-white pb-2 titolo-pagamento">Rendi più visibile la tua proprietà</h2>
     <div class="container d-flex justify-content-center">
         <form action="{{ route('token') }}" method="post">
             @csrf

@@ -73,6 +73,11 @@
     }
 }
 
+.titolo-pagamento{
+    font-size: 60px
+}
+
+
 @media screen and (max-width: 576px) {
     .footer-content {
         .contact-info {
@@ -90,6 +95,10 @@
             margin: 1.2rem 0;
         }
     }
+    .titolo-pagamento{
+        font-size: 3rem;
+        text-align: center;
+    }
 }
 
 //pagina pagamento
@@ -99,6 +108,7 @@
     background-size: cover;
     height: 90vh;
 }
+
 
 nav {
     height: 10vh;
