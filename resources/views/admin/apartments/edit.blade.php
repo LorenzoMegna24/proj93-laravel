@@ -67,7 +67,7 @@
         </div>
         <div class="form-group my-3">
             <label class="form-label" for="">IMMAGINE CARICATA</label>
-            <img class="d-flex" style="height: 250px" src="{{ asset('storage/' . $apartment->image) }}" alt="Immagine appartamento">
+            <img class="d-flex anteprima" src="{{ asset('storage/' . $apartment->image) }}" alt="Immagine appartamento">
         </div>
 
 

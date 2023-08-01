@@ -28,6 +28,10 @@
     }
 }
 
+.anteprima {
+    height: 250px;
+}
+
 //stile per il footer
 .footer-content {
     background-image: linear-gradient(to bottom, #e8f3fe, #f0f5ff, #f6f8ff, #fbfbff, #ffffff);
@@ -74,7 +78,8 @@
 }
 
 .titolo-pagamento {
-    font-size: 60px
+    font-size: 60px;
+    text-align: center;
 }
 
 
@@ -98,7 +103,11 @@
 
     .titolo-pagamento {
         font-size: 3rem;
-        text-align: center;
+
+    }
+
+    .anteprima {
+        height: 180px;
     }
 }
 
