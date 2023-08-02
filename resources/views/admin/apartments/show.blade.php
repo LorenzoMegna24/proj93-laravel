@@ -107,11 +107,12 @@
                                     <td>{{$elem->content}}</td>
                                     <td class=" d-none d-sm-table-cell">{{$elem->date}}</td>
                                     <td>
-                                        <form id="formEliminateMessage" action="{{route('message.destroy', $elem->id)}}" method="POST" onsubmit="return showConfirmationModalMessage(event)">
+                                        <form id="formEliminateMessage-{{ $elem->id }}" action="{{ route('message.destroy', $elem->id) }}" method="POST" onsubmit="return showConfirmationModalMessage(event, {{ $elem->id }})">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger mt-3">Elimina</button>
                                         </form>
+                                        
                                     </td>
                                 </tr>
                                 @endforeach
@@ -130,7 +131,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Conferma Eliminazione Propietà</h5>
+                            <h5 class="modal-title">Conferma Eliminazione Proprietà</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -157,8 +158,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                            <button type="button" class="btn btn-danger" onclick="deleteMessage()">Elimina</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteMessage(window.messageId)">Elimina</button>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -275,21 +277,24 @@
         }
 
         //funzione di conferma eliminazione messaggio
-        function showConfirmationModalMessage(event) {
-            event.preventDefault(); // Blocca l'invio del form
-
-            const confirmationModalMessage = new bootstrap.Modal(document.getElementById('confirmationModalMessage'), {
-                keyboard: false
-            });
-
-            confirmationModalMessage.show();
+        function showConfirmationModalMessage(event, messageId) {
+        event.preventDefault(); // Blocca l'invio del form
+            
+        const confirmationModalMessage = new bootstrap.Modal(document.getElementById('confirmationModalMessage'), {
+            keyboard: false
+        });
+    
+        confirmationModalMessage.show();
+    
+        // Salva l'ID del messaggio da eliminare in una variabile globale
+        window.messageId = messageId;
         }
 
         //funzione chiamata per eliminare il messaggio
-        function deleteMessage(){
-            // Ora puoi eseguire l'invio del form
-            const formElementMessage = document.getElementById('formEliminateMessage');
-            formElementMessage.submit();
+        function deleteMessage(messageId) {
+        // Ora puoi eseguire l'invio del form
+        const formElementMessage = document.getElementById('formEliminateMessage-' + messageId);
+        formElementMessage.submit();
         }
 
     </script>
